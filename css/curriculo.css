@@ -1,0 +1,974 @@
+/* Página Criar Currículo: dicas e formulário em seções.
+   Somente aparência; campos, nomes e endereço do formulário (Formspree) não mudam aqui.
+   Classes usadas por js/curriculo-formulario.js: .campo, .item-lista, .erro-campo,
+   .contador-caracteres, .selo, .selo-erro. Cores sempre pelos tokens de css/styles.css. */
+
+.dicas {
+  padding-bottom: 0;
+}
+
+/* Caixa do formulário, alinhada à mesma coluna das dicas. */
+.curriculo {
+  max-width: 860px;
+  margin: var(--esp-6) max(var(--margem-lateral), calc((100% - var(--largura-max)) / 2)) 0;
+  padding: var(--esp-6);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-1);
+}
+
+.curriculo h1 {
+  margin-bottom: var(--esp-3);
+}
+
+.introducao-formulario {
+  max-width: var(--largura-texto);
+  margin: 0 0 var(--esp-2);
+}
+
+/* Aviso sobre campos obrigatórios, logo abaixo da introdução. */
+.dica-formulario {
+  margin: 0 0 var(--esp-5);
+  color: var(--cor-texto-suave);
+}
+
+/* Avisos (sem JavaScript e rascunho encontrado). */
+.aviso-noscript,
+.aviso-rascunho {
+  margin: 0 0 var(--esp-5);
+  padding: var(--esp-4) var(--esp-5);
+  color: var(--cor-aviso-texto);
+  background: var(--cor-aviso-fundo);
+  border-left: 4px solid var(--cor-aviso-borda);
+  border-radius: var(--raio-sm);
+}
+
+.aviso-rascunho p {
+  margin: 0 0 var(--esp-3);
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-3);
+}
+
+/* Índice das seções, com o selo Obrigatória/Opcional/Revisar. */
+.secoes-nav {
+  margin: 0 0 var(--esp-6);
+  padding: var(--esp-4) var(--esp-5);
+  background: var(--cor-superficie-suave);
+  border-radius: var(--raio-md);
+}
+
+.secoes-titulo {
+  margin-bottom: var(--esp-2);
+  font-size: 1rem;
+}
+
+.secoes-nav ol {
+  margin: 0;
+  padding-left: 1.4em;
+  columns: 2 260px;
+  column-gap: var(--esp-6);
+}
+
+.secoes-nav li {
+  padding-block: 2px;
+  break-inside: avoid;
+}
+
+.secoes-nav a {
+  display: inline-block;
+  min-height: 24px;
+}
+
+.selo {
+  display: inline-block;
+  margin-left: var(--esp-1);
+  padding: 0 8px;
+  color: var(--cor-chip-texto);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pilula);
+  font-size: .75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.selo-opcional {
+  color: var(--cor-texto-suave);
+}
+
+.selo-erro {
+  color: var(--cor-erro);
+  background: var(--cor-erro-fundo);
+  border-color: var(--cor-erro);
+}
+
+/* Resumo de erros no topo do formulário; recebe o foco quando o envio é bloqueado. */
+.resumo-erros {
+  margin: 0 0 var(--esp-6);
+  padding: var(--esp-5);
+  background: var(--cor-erro-fundo);
+  border: 3px solid var(--cor-erro);
+  border-radius: var(--raio-md);
+}
+
+.resumo-erros h2 {
+  margin-bottom: var(--esp-3);
+  color: var(--cor-erro);
+  font-size: 1.2rem;
+}
+
+.resumo-erros ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.resumo-erros li + li {
+  margin-top: var(--esp-1);
+}
+
+.resumo-erros a {
+  color: var(--cor-erro);
+  font-weight: 600;
+}
+
+/* Seções do formulário, separadas por uma linha. */
+.secao-form {
+  padding-block: var(--esp-6);
+  border-top: 1px solid var(--cor-borda);
+}
+
+.secao-form:first-of-type {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.secao-form h2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--esp-2) var(--esp-3);
+  font-size: 1.35rem;
+}
+
+.secao-numero {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: var(--cor-sobre-primaria);
+  background: var(--cor-primaria);
+  border-radius: 50%;
+  font-family: var(--fonte-texto);
+  font-size: 1rem;
+}
+
+.secao-intro {
+  max-width: var(--largura-texto);
+  margin: 0 0 var(--esp-5);
+  color: var(--cor-texto-suave);
+}
+
+/* Campos: rótulo, dica, mensagem de erro (quando houver) e controle, nessa ordem. */
+.grade-campos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--esp-5);
+}
+
+.campo-largo {
+  grid-column: 1 / -1;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin: 0;
+}
+
+.secao-form > .campo:not(:last-child) {
+  margin-bottom: var(--esp-5);
+}
+
+.campo > label,
+.campo > legend {
+  margin-bottom: var(--esp-1);
+  color: var(--cor-texto);
+  font-weight: 600;
+}
+
+.opcional {
+  color: var(--cor-texto-suave);
+  font-size: .9em;
+  font-weight: 400;
+}
+
+.secao-form h2 .opcional {
+  font-family: var(--fonte-texto);
+  font-size: 1rem;
+}
+
+.dica-campo {
+  margin: 0 0 var(--esp-2);
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-pequeno);
+}
+
+/* Altura mínima de 44 px para campos e botões (alvo de toque confortável). */
+.campo > :where(input, select, textarea) {
+  min-height: 44px;
+}
+
+.campo textarea {
+  min-height: 110px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+/* Destaque do campo em uso (além do contorno de foco do teclado). */
+.campo :where(input, select, textarea):focus {
+  border-color: var(--cor-foco);
+  box-shadow: 0 0 0 3px var(--cor-hover-suave);
+}
+
+.contador-caracteres {
+  margin: var(--esp-1) 0 0;
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-pequeno);
+  text-align: right;
+}
+
+.contador-caracteres.excedido {
+  color: var(--cor-erro);
+  font-weight: 700;
+}
+
+/* Mensagem de erro junto ao campo. */
+.erro-campo {
+  margin: 0 0 var(--esp-2);
+  padding-left: var(--esp-2);
+  color: var(--cor-erro);
+  border-left: 3px solid var(--cor-erro);
+  font-size: .95rem;
+  font-weight: 600;
+}
+
+.campo > [aria-invalid="true"] {
+  border: 2px solid var(--cor-erro);
+}
+
+/* Tipos de oportunidade: caixas de seleção com área de toque de 44 px. */
+.grupo-opcoes {
+  padding: 0;
+  border: 0;
+}
+
+.opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2) var(--esp-3);
+}
+
+.opcao {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-2);
+  min-height: 44px;
+  padding: 0 var(--esp-3);
+  border: 1px solid var(--cor-borda-campo);
+  border-radius: var(--raio-sm);
+  cursor: pointer;
+}
+
+.opcao:has(input:checked) {
+  border-color: var(--cor-primaria);
+  background: var(--cor-hover-suave);
+}
+
+.opcao input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--cor-primaria);
+}
+
+.opcao input[aria-invalid="true"] {
+  outline: 2px solid var(--cor-erro);
+  outline-offset: 1px;
+}
+
+/* Listas de itens (experiências, projetos, voluntariado e cursos). */
+.lista-itens {
+  display: grid;
+  gap: var(--esp-4);
+  margin: 0 0 var(--esp-4);
+  padding: 0;
+  list-style: none;
+}
+
+.lista-itens:empty {
+  margin: 0;
+}
+
+.item-lista fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: var(--esp-4) var(--esp-5) var(--esp-5);
+  background: var(--cor-fundo);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-md);
+}
+
+.item-titulo {
+  padding: 0 var(--esp-2);
+  color: var(--cor-titulo);
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+}
+
+.item-lista .grade-campos {
+  margin-bottom: var(--esp-4);
+}
+
+.botao-remover {
+  min-height: 44px;
+  padding: 8px 14px;
+  color: var(--cor-link);
+  background: transparent;
+  border: 1px solid var(--cor-borda-campo);
+  border-radius: var(--raio-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.botao-remover:hover {
+  background: var(--cor-hover-suave);
+}
+
+.botao-adicionar::before {
+  content: "+" / "";
+  font-size: 1.25em;
+  line-height: 1;
+}
+
+.lista-vazia {
+  margin: 0 0 var(--esp-4);
+  color: var(--cor-texto-suave);
+  font-style: italic;
+}
+
+.lista-itens + .erro-campo,
+.aviso-limite {
+  margin-top: var(--esp-2);
+}
+
+/* Fotografia: campo de arquivo e prévia local. */
+.campo-foto {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--esp-5);
+  align-items: start;
+}
+
+.campo-foto input[type="file"] {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.previa-foto {
+  display: grid;
+  justify-items: center;
+  gap: var(--esp-2);
+  max-width: 220px;
+  margin: 0;
+  text-align: center;
+}
+
+.previa-foto img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  background: var(--cor-superficie-suave);
+  border: 3px solid var(--cor-borda);
+  border-radius: 50%;
+}
+
+.previa-foto figcaption {
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-pequeno);
+  overflow-wrap: anywhere;
+}
+
+/* Envio e rascunho. */
+.secao-envio p {
+  max-width: var(--largura-texto);
+}
+
+.caixa-rascunho {
+  margin: var(--esp-5) 0 var(--esp-6);
+  padding: var(--esp-4) var(--esp-5);
+  border: 1px dashed var(--cor-borda-campo);
+  border-radius: var(--raio-md);
+}
+
+.caixa-rascunho h3 {
+  margin-bottom: var(--esp-2);
+  font-size: 1.05rem;
+}
+
+.caixa-rascunho p {
+  margin: 0 0 var(--esp-4);
+  color: var(--cor-texto-suave);
+}
+
+.caixa-rascunho .estado-rascunho {
+  margin: var(--esp-3) 0 0;
+  color: var(--cor-texto);
+  font-weight: 600;
+}
+
+.caixa-rascunho .estado-rascunho:empty {
+  margin: 0;
+}
+
+#enviar-curriculo {
+  min-width: 260px;
+}
+
+/* Habilidades (tags): sugestões em botões de alternância e lista das escolhidas. */
+.grupo-tags + .grupo-tags {
+  margin-top: var(--esp-6);
+}
+
+.grupo-tags h3 {
+  margin-bottom: var(--esp-3);
+  font-size: 1.05rem;
+}
+
+.sugestoes-tags,
+.tags-escolhidas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+}
+
+.sugestao-tag {
+  min-height: 40px;
+  padding: 6px 14px;
+  color: var(--cor-titulo);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda-campo);
+  border-radius: var(--raio-pilula);
+  font-family: var(--fonte-texto);
+  font-size: .9rem;
+  cursor: pointer;
+}
+
+.sugestao-tag:hover {
+  background: var(--cor-hover-suave);
+}
+
+/* Sugestão escolhida: fundo azul e marca de seleção (não depende só da cor). */
+.sugestao-tag[aria-pressed="true"] {
+  color: var(--cor-sobre-primaria);
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+}
+
+.sugestao-tag[aria-pressed="true"]::before {
+  content: "✓ " / "";
+}
+
+.tags-escolhidas {
+  min-height: 0;
+  margin: var(--esp-3) 0 var(--esp-4);
+  padding: 0;
+  list-style: none;
+}
+
+.tags-escolhidas:empty {
+  margin: 0 0 var(--esp-3);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-1);
+  padding: 2px 4px 2px 12px;
+  color: var(--cor-chip-texto);
+  background: var(--cor-chip-fundo);
+  border-radius: var(--raio-pilula);
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+.remover-tag {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.remover-tag:hover {
+  background: var(--cor-hover-suave);
+}
+
+.linha-tag {
+  display: flex;
+  gap: var(--esp-2);
+}
+
+.linha-tag input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+}
+
+/* Solicitar publicação: autorização e estados do envio. */
+.autorizacao {
+  margin: var(--esp-4) 0;
+  padding: var(--esp-4) var(--esp-5);
+  background: var(--cor-fundo-secundario);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-md);
+}
+
+.autorizacao h3 {
+  margin-bottom: var(--esp-2);
+  font-size: 1.05rem;
+}
+
+.autorizacao ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.autorizacao li + li {
+  margin-top: var(--esp-2);
+}
+
+.campo-autorizacao {
+  margin-bottom: var(--esp-5);
+}
+
+.opcao-autorizacao {
+  align-items: flex-start;
+  padding: var(--esp-3);
+  font-weight: 600;
+}
+
+.opcao-autorizacao input[type="checkbox"] {
+  flex: none;
+  margin-top: 2px;
+}
+
+.estado-envio {
+  margin-top: var(--esp-4);
+  font-weight: 600;
+}
+
+.estado-envio:empty {
+  margin: 0;
+}
+
+.estado-envio--sucesso,
+.estado-envio--erro {
+  padding: var(--esp-3) var(--esp-4);
+  border-left: 4px solid currentColor;
+  border-radius: var(--raio-sm);
+}
+
+.estado-envio--sucesso {
+  color: var(--cor-titulo);
+  background: var(--cor-superficie-suave);
+}
+
+.estado-envio--erro {
+  color: var(--cor-erro);
+  background: var(--cor-erro-fundo);
+}
+
+.botao-criar-curriculo:disabled {
+  cursor: not-allowed;
+  opacity: .75;
+}
+
+.caixa-rascunho + .caixa-rascunho {
+  margin-top: 0;
+}
+
+/* Prévia e PDF: chamada no fim do formulário. */
+.caixa-previa {
+  margin: var(--esp-5) 0 0;
+  padding: var(--esp-4) var(--esp-5);
+  background: var(--cor-superficie-suave);
+  border-radius: var(--raio-md);
+}
+
+.caixa-previa h3 {
+  margin-bottom: var(--esp-2);
+  font-size: 1.05rem;
+}
+
+.caixa-previa p {
+  margin: 0 0 var(--esp-4);
+}
+
+/* Pré-visualização: barra de ações acima da folha (estilos da folha em curriculo-documento.css). */
+.previa {
+  max-width: 980px;
+  margin: var(--esp-6) max(var(--margem-lateral), calc((100% - var(--largura-max)) / 2)) 0;
+}
+
+.previa-barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--esp-4);
+  margin-bottom: var(--esp-3);
+}
+
+.previa-cabecalho h2 {
+  margin-bottom: var(--esp-1);
+}
+
+.estado-previa {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-pequeno);
+}
+
+.seletor-modelo {
+  margin: 0 0 var(--esp-4);
+  padding: 0;
+  border: 0;
+}
+
+.seletor-modelo legend {
+  margin-bottom: var(--esp-2);
+  font-weight: 700;
+}
+
+.seletor-modelo .opcao {
+  flex: 1 1 280px;
+  align-items: flex-start;
+  padding: var(--esp-3);
+}
+
+.seletor-modelo input[type="radio"] {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  padding: 0;
+  accent-color: var(--cor-primaria);
+}
+
+.ajuda-pdf {
+  max-width: var(--largura-texto);
+  margin: 0 0 var(--esp-4);
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-pequeno);
+}
+
+.pendencias-previa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+  margin: 0 0 var(--esp-5);
+  padding: var(--esp-3) var(--esp-4);
+  color: var(--cor-erro);
+  background: var(--cor-erro-fundo);
+  border-left: 4px solid var(--cor-erro);
+  border-radius: var(--raio-sm);
+  font-weight: 600;
+}
+
+.pendencias-previa p {
+  margin: 0;
+}
+
+/* Celulares: uma coluna e botões com a largura da tela. */
+@media (max-width: 600px) {
+  .curriculo {
+    padding: var(--esp-5) var(--esp-4);
+  }
+
+  .secoes-nav {
+    padding: var(--esp-4);
+  }
+
+  .grade-campos,
+  .campo-foto {
+    grid-template-columns: 1fr;
+  }
+
+  .item-lista fieldset {
+    padding: var(--esp-3) var(--esp-4) var(--esp-4);
+  }
+
+  .botao-remover {
+    justify-self: start;
+  }
+
+  .previa-foto {
+    justify-items: start;
+    text-align: left;
+  }
+
+  #enviar-curriculo,
+  #visualizar-curriculo,
+  .acoes .botao {
+    width: 100%;
+  }
+}
+
+/* =========================================================================
+   Editor com prévia em tempo real, escolha de modelos e personalização.
+   Desktop (a partir de 1200 px): formulário à esquerda e prévia fixa à direita.
+   Telas menores: um embaixo do outro.
+   ========================================================================= */
+.editor-layout {
+  display: grid;
+  /* minmax(0, …) e min-width: 0 impedem que a folha A4 das miniaturas e da prévia
+     (larga antes da redução por escala) alargue as colunas e crie rolagem horizontal. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--esp-6);
+  max-width: 1440px;
+  margin: var(--esp-6) auto 0;
+  padding-inline: var(--margem-lateral);
+}
+
+.editor-layout > *,
+.cartao-modelo,
+.miniatura,
+.previa-documento {
+  min-width: 0;
+}
+
+.editor-layout .curriculo {
+  max-width: none;
+  margin: 0;
+}
+
+.editor-layout .previa {
+  max-width: none;
+  margin: 0;
+}
+
+@media (min-width: 1200px) {
+  .editor-layout {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+    align-items: start;
+  }
+
+  /* A prévia acompanha a rolagem do formulário. */
+  .editor-layout .previa {
+    position: sticky;
+    top: var(--esp-4);
+    max-height: calc(100vh - 2 * var(--esp-4));
+    overflow-y: auto;
+    padding-right: var(--esp-2);
+  }
+}
+
+/* A folha (largura A4) é reduzida por escala pelo JavaScript; a caixa recorta a sobra. */
+.previa-documento {
+  overflow: hidden;
+}
+
+/* Escolha do modelo ------------------------------------------------------ */
+.escolha-modelo {
+  margin: 0 0 var(--esp-6);
+}
+
+.escolha-modelo h2 {
+  margin-bottom: var(--esp-2);
+  font-size: 1.35rem;
+}
+
+.lista-modelos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: var(--esp-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cartao-modelo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-2);
+  padding: var(--esp-3);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-1);
+}
+
+/* Modelo escolhido: borda mais grossa e marca no botão (não depende só da cor). */
+.cartao-modelo--escolhido {
+  border: 2px solid var(--cor-primaria);
+}
+
+/* Miniatura: primeira página do currículo em escala reduzida (altura definida pelo JS). */
+.miniatura {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-sm);
+}
+
+.cartao-modelo h3 {
+  margin: var(--esp-1) 0 0;
+  font-size: 1.02rem;
+}
+
+.descricao-modelo,
+.publico-modelo {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-pequeno);
+}
+
+.publico-modelo strong {
+  color: var(--cor-texto);
+}
+
+.acoes-modelo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+  margin-top: auto;
+  padding-top: var(--esp-2);
+}
+
+.acoes-modelo .botao {
+  flex: 1 1 auto;
+  padding-inline: var(--esp-3);
+  font-size: .9rem;
+}
+
+/* Personalização --------------------------------------------------------- */
+.painel-personalizar {
+  margin: 0 0 var(--esp-4);
+  padding: var(--esp-4);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-md);
+}
+
+.painel-personalizar h3 {
+  margin-bottom: var(--esp-1);
+  font-size: 1.1rem;
+}
+
+.modelo-atual {
+  margin: 0 0 var(--esp-3);
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-pequeno);
+}
+
+.controles-personalizar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-4);
+}
+
+.seletor-cores {
+  flex: 1 1 320px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.seletor-cores legend,
+.seletor-fonte label {
+  display: block;
+  margin-bottom: var(--esp-2);
+  font-weight: 700;
+}
+
+.opcoes-cores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+}
+
+/* Cada cor é um rádio de verdade (teclado e leitor de tela), com a bolinha visível ao lado. */
+.opcao-cor {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 4px 12px 4px 8px;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda-campo);
+  border-radius: var(--raio-pilula);
+  font-size: .88rem;
+  cursor: pointer;
+}
+
+.opcao-cor input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+
+.opcao-cor:has(input:focus-visible) {
+  outline: 3px solid var(--cor-foco);
+  outline-offset: 2px;
+}
+
+.opcao-cor:has(input:checked) {
+  border: 2px solid var(--cor-primaria);
+  font-weight: 700;
+}
+
+.amostra-cor {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  color: #ffffff;
+  background: var(--amostra);
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .3);
+  font-size: .7rem;
+  line-height: 1;
+}
+
+.opcao-cor:has(input:checked) .amostra-cor::after {
+  content: "✓" / "";
+}
+
+.seletor-fonte {
+  flex: 0 1 200px;
+}
+
+.seletor-fonte select {
+  min-height: 44px;
+}

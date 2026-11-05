@@ -1,0 +1,501 @@
+/* =========================================================================
+   Estrutura compartilhada: cabeçalho, menu, rodapé e botão de tema.
+   Todas as páginas usam a mesma marcação (.site-header e .site-footer).
+   Modelo 2 — Institucional e Elegante: cabeçalho branco com logomarca à
+   esquerda, menu centralizado e alternância de tema à direita; rodapé em
+   azul profundo. Depende das variáveis definidas em css/styles.css.
+   ========================================================================= */
+
+/* Cabeçalho ------------------------------------------------------------- */
+.site-header {
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border-bottom: 1px solid var(--cor-borda);
+  box-shadow: var(--sombra-1);
+}
+
+/* Três áreas: logomarca | menu (centro) | tema. O botão "Menu" só aparece no celular. */
+.site-nav {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-areas: "logo menu tema";
+  align-items: center;
+  gap: var(--esp-5);
+  max-width: calc(var(--largura-max) + 2 * var(--margem-lateral));
+  margin: 0 auto;
+  padding: var(--esp-3) var(--margem-lateral);
+}
+
+/* Logomarca e nome do site; a imagem é quadrada e não é distorcida. */
+.logo {
+  display: inline-flex;
+  grid-area: logo;
+  align-items: center;
+  justify-self: start;
+  gap: var(--esp-3);
+  color: var(--cor-titulo);
+  font-family: var(--fonte-titulo);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  line-height: 1.2;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.logo img {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+/* Menu principal: links discretos; a página atual recebe um traço azul embaixo. */
+.menu {
+  display: flex;
+  grid-area: menu;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--esp-1);
+}
+
+.menu a,
+.menu button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: var(--esp-2) var(--esp-3);
+  color: var(--cor-texto);
+  background: transparent;
+  border: 0;
+  border-radius: var(--raio-sm);
+  font-family: var(--fonte-texto);
+  font-size: .95rem;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--transicao), background-color var(--transicao);
+}
+
+.menu a::after {
+  position: absolute;
+  right: var(--esp-3);
+  bottom: 4px;
+  left: var(--esp-3);
+  height: 2px;
+  content: "";
+  background: transparent;
+  border-radius: 2px;
+  transition: background-color var(--transicao);
+}
+
+.menu a:hover {
+  color: var(--cor-titulo);
+}
+
+.menu a:hover::after {
+  background: var(--cor-borda);
+}
+
+/* Página atual: aria-current já existe no HTML; .ativo mantém compatibilidade. */
+.menu a[aria-current="page"],
+.menu a.ativo {
+  color: var(--cor-titulo);
+  font-weight: 700;
+}
+
+.menu a[aria-current="page"]::after,
+.menu a.ativo::after {
+  background: var(--cor-destaque);
+}
+
+/* Ação dentro do menu (ex.: Salvar como PDF) com aparência de botão. */
+.menu .menu-acao {
+  margin-left: var(--esp-2);
+  color: var(--cor-sobre-primaria);
+  background: var(--cor-primaria);
+  border-radius: var(--raio-md);
+  font-weight: 600;
+}
+
+.menu .menu-acao:hover {
+  background: var(--cor-primaria-hover);
+}
+
+/* Controles à direita do cabeçalho: tamanho do texto e tema. */
+.controles-cabecalho {
+  display: flex;
+  grid-area: tema;
+  align-items: center;
+  justify-self: end;
+  gap: var(--esp-2);
+}
+
+/* "A+": aumenta e restaura o texto (js/acessibilidade.js); o estado fica em aria-pressed. */
+.botao-texto {
+  display: inline-grid;
+  place-items: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--esp-2);
+  color: var(--cor-titulo);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pilula);
+  font-family: var(--fonte-texto);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.botao-texto:hover {
+  border-color: var(--cor-destaque);
+}
+
+.botao-texto[aria-pressed="true"] {
+  color: var(--cor-sobre-primaria);
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+}
+
+/* Botão de tema. Nome fixo "Modo escuro"; o estado fica em aria-pressed. */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-2);
+  min-height: 44px;
+  padding: 6px 12px;
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pilula);
+  cursor: pointer;
+  transition: border-color var(--transicao);
+}
+
+.theme-toggle:hover {
+  border-color: var(--cor-destaque);
+}
+
+.theme-icon {
+  display: inline-flex;
+  color: var(--cor-texto-suave);
+}
+
+.theme-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.theme-track {
+  display: inline-flex;
+  align-items: center;
+  width: 36px;
+  height: 20px;
+  padding: 2px;
+  background: var(--cor-borda-campo);
+  border-radius: var(--raio-pilula);
+  transition: background-color var(--transicao);
+}
+
+.theme-thumb {
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-radius: 50%;
+  transition: transform var(--transicao);
+}
+
+body.dark-mode .theme-track {
+  background: var(--azul-destaque);
+}
+
+body.dark-mode .theme-thumb {
+  transform: translateX(16px);
+}
+
+/* Botão do menu móvel (js/menu.js). Fica oculto até o script ativá-lo,
+   para que o menu continue acessível mesmo sem JavaScript. */
+.menu-toggle {
+  display: none;
+  grid-area: botao;
+  align-items: center;
+  gap: var(--esp-2);
+  min-height: 44px;
+  padding: var(--esp-2) var(--esp-3);
+  color: var(--cor-titulo);
+  background: transparent;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-md);
+  font-family: var(--fonte-texto);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.menu-toggle:hover {
+  background: var(--cor-hover-suave);
+}
+
+.menu-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.menu-toggle .icone-fechar,
+.menu-toggle[aria-expanded="true"] .icone-abrir {
+  display: none;
+}
+
+.menu-toggle[aria-expanded="true"] .icone-fechar {
+  display: block;
+}
+
+/* Rodapé ---------------------------------------------------------------- */
+.site-footer {
+  --cor-foco: var(--cpm-dourado);
+  margin-top: var(--esp-8);
+  color: var(--cor-faixa-texto-suave);
+  background: var(--cor-faixa);
+  font-size: .95rem;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+  gap: var(--esp-6);
+  max-width: calc(var(--largura-max) + 2 * var(--margem-lateral));
+  margin: 0 auto;
+  padding: var(--esp-7) var(--margem-lateral) var(--esp-6);
+}
+
+.footer-titulo {
+  margin: 0 0 var(--esp-3);
+  color: var(--cor-faixa-texto);
+  font-family: var(--fonte-titulo);
+  font-size: 1.1rem;
+}
+
+.footer-info p {
+  max-width: 40ch;
+  margin: 0;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--esp-2);
+}
+
+.footer-links a {
+  color: var(--cor-faixa-texto);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer-contato p {
+  margin: 0 0 var(--esp-2);
+}
+
+/* Acessibilidade no rodapé: VLibras (recurso complementar, carregado só se ativado). */
+.botao-vlibras {
+  min-height: 44px;
+  padding: var(--esp-2) var(--esp-4);
+  color: var(--cor-faixa-texto);
+  background: transparent;
+  border: 1px solid var(--cor-faixa-texto-suave);
+  border-radius: var(--raio-md);
+  font-family: var(--fonte-texto);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.botao-vlibras:hover {
+  background: var(--cor-faixa-hover);
+}
+
+.botao-vlibras[aria-pressed="true"] {
+  color: var(--cor-faixa);
+  background: #ffffff;
+  border-color: #ffffff;
+}
+
+.botao-vlibras[aria-pressed="true"]::before {
+  content: "✓ " / "";
+}
+
+.nota-vlibras,
+.estado-vlibras {
+  margin: var(--esp-2) 0 0;
+  font-size: .85rem;
+}
+
+.estado-vlibras:empty {
+  display: none;
+}
+
+.copyright {
+  max-width: calc(var(--largura-max) + 2 * var(--margem-lateral));
+  margin: 0 auto;
+  padding: var(--esp-4) var(--margem-lateral) var(--esp-5);
+  border-top: 1px solid var(--cor-faixa-linha);
+  font-size: .85rem;
+  text-align: center;
+}
+
+/* Rodapé em duas colunas em telas médias. */
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Telas médias: o menu desce para uma segunda linha, centralizado. */
+@media (max-width: 1000px) {
+  .site-nav {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "logo tema"
+      "menu menu";
+    row-gap: var(--esp-2);
+  }
+}
+
+/* Página com ação extra no menu (Salvar como PDF): desce mais cedo. */
+@media (max-width: 1160px) {
+  .site-nav:has(.menu-acao) {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "logo tema"
+      "menu menu";
+    row-gap: var(--esp-2);
+  }
+}
+
+/* Celulares e zoom alto: menu recolhido atrás do botão "Menu". */
+@media (max-width: 700px) {
+  .site-nav.tem-menu-movel {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas:
+      "logo botao tema"
+      "menu menu menu";
+    gap: var(--esp-2);
+  }
+
+  .tem-menu-movel .menu-toggle {
+    display: inline-flex;
+  }
+
+  /* Fechado: display none também tira os links da ordem do Tab. */
+  .tem-menu-movel .menu {
+    display: none;
+  }
+
+  .tem-menu-movel.menu-aberto .menu {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--esp-1);
+    padding-top: var(--esp-2);
+    border-top: 1px solid var(--cor-borda);
+  }
+
+  .tem-menu-movel .menu a,
+  .tem-menu-movel .menu button {
+    justify-content: flex-start;
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .tem-menu-movel .menu a::after {
+    display: none;
+  }
+
+  /* Na lista vertical, a página atual é marcada por uma barra à esquerda. */
+  .tem-menu-movel .menu a[aria-current="page"],
+  .tem-menu-movel .menu a.ativo {
+    background: var(--cor-hover-suave);
+    box-shadow: inset 4px 0 0 var(--cor-destaque);
+  }
+
+  /* No celular, o botão de tema mostra só o interruptor (o nome continua acessível). */
+  .theme-toggle {
+    padding-inline: 8px;
+  }
+
+  .theme-toggle .theme-icon {
+    display: none;
+  }
+}
+
+/* Celulares estreitos: o nome do site e a palavra "Menu" ficam só para leitores de tela,
+   para que logomarca, "Menu", "A+" e tema caibam sem rolagem horizontal. */
+@media (max-width: 420px) {
+  .logo span,
+  .tem-menu-movel .menu-toggle span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .tem-menu-movel .menu-toggle {
+    min-width: 44px;
+    justify-content: center;
+    padding-inline: var(--esp-2);
+  }
+}
+
+/* Celulares: logomarca menor e rodapé empilhado. Sem JavaScript, o menu vira grade. */
+@media (max-width: 600px) {
+  .logo {
+    gap: var(--esp-2);
+    font-size: .9rem;
+    letter-spacing: .05em;
+  }
+
+  .logo img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .site-nav:not(.tem-menu-movel) .menu {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .site-nav:not(.tem-menu-movel) .menu a,
+  .site-nav:not(.tem-menu-movel) .menu button {
+    justify-content: center;
+    text-align: center;
+    background: var(--cor-hover-suave);
+  }
+
+  /* Um item sobrando na última linha ocupa a largura toda. */
+  .site-nav:not(.tem-menu-movel) .menu > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: var(--esp-5);
+  }
+
+  /* Reserva espaço para o botão flutuante da Nina não cobrir o fim da página. */
+  .copyright {
+    padding-bottom: 88px;
+  }
+}

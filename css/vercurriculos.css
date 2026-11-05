@@ -1,0 +1,192 @@
+/* Catálogo Ver Currículos: pesquisa, filtros e grade de cartões.
+   Classes e IDs são usados por js/vercurriculos.js; não renomear.
+   Cores, espaços e raios vêm dos tokens de css/styles.css (temas claro e escuro). */
+
+/* Seção do catálogo, logo abaixo do cabeçalho da página. */
+.catalogo {
+  padding-top: var(--esp-6);
+}
+
+/* Painel de pesquisa e filtros. */
+.filtros {
+  padding: var(--esp-5);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-1);
+}
+
+.filtros-titulo {
+  margin-bottom: var(--esp-4);
+  font-size: 1.2rem;
+}
+
+/* A pesquisa ocupa a linha inteira; os filtros se dividem na linha de baixo
+   e passam para uma coluna quando falta espaço. */
+.filtros-campos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: var(--esp-4);
+}
+
+.campo-busca {
+  grid-column: 1 / -1;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: var(--esp-1);
+  color: var(--cor-texto);
+  font-weight: 600;
+}
+
+/* Altura mínima de 44 px para os campos (alvo de toque confortável). */
+.campo :where(input, select) {
+  min-height: 44px;
+}
+
+.dica {
+  margin: var(--esp-1) 0 0;
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-pequeno);
+}
+
+/* Contador de resultados e botão "Limpar filtros". */
+.filtros-rodape {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+  margin-top: var(--esp-4);
+  padding-top: var(--esp-4);
+  border-top: 1px solid var(--cor-borda);
+}
+
+.contador {
+  margin: 0;
+  color: var(--cor-texto);
+  font-weight: 600;
+}
+
+/* Grade de cartões: tantas colunas quantas couberem, todas com a mesma largura,
+   para facilitar a comparação entre estudantes. */
+.grade-alunos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: var(--esp-5);
+  margin: var(--esp-6) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* O cartão estica até a altura da linha; o botão fica sempre no rodapé. */
+.item-aluno {
+  display: flex;
+}
+
+.cartao-aluno {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-4);
+  width: 100%;
+}
+
+.cartao-aluno-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-4);
+}
+
+.cartao-aluno-foto {
+  flex: none;
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+  background: var(--cor-superficie-suave);
+  border: 3px solid var(--cor-superficie-suave);
+  border-radius: 50%;
+}
+
+/* Seletores com duas classes para vencer as regras genéricas de .card (h3 e p). */
+.cartao-aluno .cartao-aluno-nome {
+  margin: 0 0 var(--esp-1);
+  font-size: 1.2rem;
+}
+
+.cartao-aluno .cartao-aluno-titulo {
+  margin: 0;
+  color: var(--cor-destaque);
+  font-size: .95rem;
+  font-weight: 600;
+}
+
+/* Área, interesses e tipo de oportunidade em pares rótulo/valor. */
+.cartao-aluno-dados {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--esp-1) var(--esp-3);
+  margin: 0;
+  font-size: .95rem;
+}
+
+.cartao-aluno-dados dt {
+  color: var(--cor-texto);
+  font-weight: 700;
+}
+
+.cartao-aluno-dados dd {
+  margin: 0;
+  color: var(--cor-texto-suave);
+}
+
+/* Competências no formato de etiqueta do sistema (.chip). */
+.cartao-aluno-competencias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cartao-aluno-competencias .chip {
+  max-width: 100%;
+}
+
+/* "+2": quantas competências não couberam no cartão. */
+.chip-mais {
+  padding: 4px 6px;
+  color: var(--cor-texto-suave);
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.cartao-aluno-link {
+  margin-top: auto;
+}
+
+/* Avisos de carregamento, erro e lista vazia. */
+.estado strong {
+  display: block;
+  margin-bottom: var(--esp-2);
+  color: var(--cor-titulo);
+  font-family: var(--fonte-titulo);
+  font-size: 1.25rem;
+}
+
+.sem-resultados p {
+  margin: 0 0 var(--esp-4);
+}
+
+/* Celulares: painel mais compacto. */
+@media (max-width: 600px) {
+  .filtros {
+    padding: var(--esp-4);
+  }
+
+  .cartao-aluno-foto {
+    width: 72px;
+    height: 72px;
+  }
+}

@@ -1,0 +1,236 @@
+/* Página Cursos e Certificados (certificados.html): legenda, trilhas, filtros e cartões.
+   Conteúdo montado por js/cursos.js a partir de data/cursos.json. */
+
+.secao-cursos h2,
+.legenda-cursos h2 {
+  margin-bottom: var(--esp-3);
+}
+
+.dica-cursos {
+  max-width: var(--largura-texto);
+  margin: 0 0 var(--esp-4);
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-pequeno);
+}
+
+/* Legenda das condições de certificado. */
+.lista-legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+  margin: 0 0 var(--esp-3);
+  padding: 0;
+  list-style: none;
+}
+
+/* Selo de certificado: texto sempre visível (a cor só reforça). */
+.selo-certificado {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid currentColor;
+  border-radius: var(--raio-pilula);
+  font-size: .85rem;
+  font-weight: 700;
+}
+
+.selo-certificado--gratuito {
+  color: var(--cor-titulo);
+  background: var(--cor-chip-fundo);
+}
+
+.selo-certificado--pago,
+.selo-certificado--condicoes {
+  color: var(--cor-aviso-texto);
+  background: var(--cor-aviso-fundo);
+}
+
+.selo-certificado--a_confirmar {
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border-style: dashed;
+}
+
+/* Trilhas de aprendizagem. */
+.lista-trilhas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: var(--esp-5);
+}
+
+.etapas-trilha {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: etapa;
+}
+
+.etapa-trilha {
+  position: relative;
+  padding: 0 0 var(--esp-4) 40px;
+  counter-increment: etapa;
+}
+
+/* Número da etapa e linha ligando as etapas (decorativos: a lista <ol> já dá a ordem). */
+.etapa-trilha::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  color: var(--cor-sobre-primaria);
+  background: var(--cor-primaria);
+  border-radius: 50%;
+  content: counter(etapa) / "";
+  font-size: .85rem;
+  font-weight: 700;
+}
+
+.etapa-trilha:not(:last-child)::after {
+  position: absolute;
+  top: 30px;
+  bottom: 2px;
+  left: 13px;
+  width: 2px;
+  content: "";
+  background: var(--cor-borda);
+}
+
+.titulo-etapa {
+  display: block;
+  color: var(--cor-titulo);
+  font-weight: 700;
+}
+
+.destinos-etapa {
+  margin: var(--esp-1) 0 0;
+  padding-left: 1.1em;
+  font-size: .92rem;
+}
+
+.destinos-etapa a {
+  display: inline-block;
+  min-height: 24px;
+}
+
+/* Filtros do catálogo. */
+.filtros-cursos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--esp-4);
+  margin-bottom: var(--esp-3);
+}
+
+.campo-curso {
+  flex: 1 1 200px;
+}
+
+.campo-curso label {
+  display: block;
+  margin-bottom: var(--esp-1);
+  font-weight: 600;
+}
+
+.campo-curso select {
+  min-height: 44px;
+}
+
+.contador-cursos {
+  margin: 0 0 var(--esp-4);
+  font-weight: 600;
+}
+
+/* Cartões de curso. */
+.lista-cursos {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cartao-curso {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--esp-2);
+}
+
+.cartao-curso h3 {
+  margin: 0;
+}
+
+.cartao-curso .instituicao-curso {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  font-weight: 600;
+}
+
+.dados-curso {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px var(--esp-3);
+  margin: 0;
+  font-size: .92rem;
+}
+
+.dados-curso dt {
+  font-weight: 700;
+}
+
+.dados-curso dd {
+  margin: 0;
+  color: var(--cor-texto-suave);
+}
+
+/* "Acessar curso": botão secundário, sempre no fim do cartão. */
+.cartao-curso > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: auto;
+  padding: 10px 18px;
+  color: var(--cor-link);
+  border: 1px solid currentColor;
+  border-radius: var(--raio-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color var(--transicao), color var(--transicao);
+}
+
+.cartao-curso > a:hover {
+  color: var(--cor-sobre-primaria);
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+}
+
+/* Plataformas e aviso. */
+.lista-plataformas {
+  margin: 0 0 var(--esp-5);
+  padding-left: 1.2em;
+}
+
+.lista-plataformas li + li {
+  margin-top: var(--esp-3);
+}
+
+.lista-plataformas a {
+  font-weight: 700;
+}
+
+.observacao-plataforma {
+  max-width: var(--largura-texto);
+  margin: var(--esp-1) 0 0;
+  color: var(--cor-texto-suave);
+  font-size: .92rem;
+}
+
+.aviso-cursos {
+  max-width: var(--largura-texto);
+  margin: 0;
+  padding: var(--esp-3) var(--esp-4);
+  color: var(--cor-aviso-texto);
+  background: var(--cor-aviso-fundo);
+  border-left: 4px solid var(--cor-aviso-borda);
+  border-radius: var(--raio-sm);
+}

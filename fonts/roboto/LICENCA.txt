@@ -1,0 +1,6 @@
+Roboto (subconjunto latino, fonte variavel), baixada do Google Fonts em 05/11/2026
+para uso local no Criador de Curriculo (opcao de fonte "Roboto").
+
+Copyright 2011 The Roboto Project Authors (https://github.com/googlefonts/roboto-classic)
+Licenca: SIL Open Font License, Version 1.1 - https://openfontlicense.org
+Texto completo: https://github.com/googlefonts/roboto-classic/blob/main/OFL.txt

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cursos | Curriculum CPM</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/site-chrome.css">
+  <link rel="stylesheet" href="css/chatbot.css">
+  <link rel="stylesheet" href="css/oportunidades.css">
+  <script src="js/cursos.js" defer></script>
+</head>
+  <body>
+  <script src="js/tema-inicial.js"></script>
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo principal</a>
+    <header class="site-header">
+    <nav class="site-nav" aria-label="Navegação principal">
+      <a class="logo" href="index.html">
+        <img src="logo3cpm.png" alt="Logo do 3º CPM" width="52" height="52">
+        <span>Curriculum CPM</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" hidden>
+        <svg class="icone-abrir" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
+        <svg class="icone-fechar" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19 5 17.6l5.6-5.6L5 6.4 6.4 5Z"/></svg>
+        <span>Menu</span>
+      </button>
+      <div class="menu" id="menu-principal">
+        <a href="index.html">Início</a>
+        <a href="curriculo.html">Criar Currículo</a>
+        <a href="vercurriculos.html">Talentos</a>
+        <a class="ativo" aria-current="page" href="certificados.html">Cursos</a>
+        <a href="quem-somos-nos.html">Sobre Nós</a>
+      </div>
+      <!-- Controles à direita: tamanho do texto (js/acessibilidade.js) e tema (js/main.js). -->
+      <div class="controles-cabecalho">
+        <button class="botao-texto" type="button" aria-pressed="false" data-acessibilidade="texto">A+<span class="visualmente-oculto"> Aumentar texto</span></button>
+        <button class="theme-toggle" type="button" aria-label="Modo escuro" aria-pressed="false">
+          <span class="theme-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0-5 1 3h-2l1-3Zm0 20-1-3h2l-1 3ZM2 12l3-1v2l-3-1Zm20 0-3 1v-2l3 1ZM4.9 4.9l2.8 1.4-1.4 1.4-1.4-2.8Zm14.2 14.2-2.8-1.4 1.4-1.4 1.4 2.8Zm0-14.2-1.4 2.8-1.4-1.4 2.8-1.4ZM4.9 19.1l1.4-2.8 1.4 1.4-2.8 1.4Z"/></svg></span>
+          <span class="theme-track" aria-hidden="true"><span class="theme-thumb"></span></span>
+          <span class="theme-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"/></svg></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+    <main id="conteudo">
+      <section class="cabecalho-pagina">
+        <span>Formação complementar</span>
+        <h1>Cursos e Certificados</h1>
+        <p>Cursos on-line gratuitos de instituições reconhecidas, organizados por área e em trilhas. Confira a condição do certificado antes de começar.</p>
+      </section>
+
+      <!-- Conteúdo montado por js/cursos.js a partir de data/cursos.json. -->
+      <div id="estado-cursos" class="estado" role="status">
+        <strong>Carregando cursos…</strong>
+      </div>
+      <div id="erro-cursos" class="estado" role="alert" hidden>
+        <strong>Não foi possível carregar a lista de cursos.</strong>
+        Recarregue a página. Enquanto isso, você pode acessar as plataformas abaixo.
+      </div>
+
+      <section id="legenda-cursos" class="legenda-cursos" aria-labelledby="titulo-legenda" hidden>
+        <h2 id="titulo-legenda">Sobre os certificados</h2>
+        <ul class="lista-legenda">
+          <li><span class="selo-certificado selo-certificado--gratuito">Curso e certificado gratuitos</span></li>
+          <li><span class="selo-certificado selo-certificado--pago">Curso gratuito, certificado pago</span></li>
+          <li><span class="selo-certificado selo-certificado--condicoes">Condições especiais</span></li>
+          <li><span class="selo-certificado selo-certificado--a_confirmar">Certificado a confirmar</span></li>
+        </ul>
+        <p id="verificacao-cursos" class="dica-cursos"></p>
+      </section>
+
+      <section id="trilhas" class="secao-cursos" aria-labelledby="titulo-trilhas" hidden>
+        <h2 id="titulo-trilhas">Trilhas de aprendizagem</h2>
+        <p class="dica-cursos">Sugestões de ordem para estudar, só com cursos e conteúdos disponíveis nesta página e no site.</p>
+        <div id="lista-trilhas" class="lista-trilhas"></div>
+      </section>
+
+      <section id="catalogo-cursos" class="secao-cursos" aria-labelledby="titulo-catalogo-cursos" hidden>
+        <h2 id="titulo-catalogo-cursos">Catálogo de cursos</h2>
+        <form id="filtros-cursos" class="filtros-cursos" aria-label="Filtrar cursos">
+          <div class="campo-curso">
+            <label for="filtro-area-curso">Área</label>
+            <select id="filtro-area-curso"><option value="">Todas as áreas</option></select>
+          </div>
+          <div class="campo-curso">
+            <label for="filtro-plataforma">Instituição</label>
+            <select id="filtro-plataforma"><option value="">Todas as instituições</option></select>
+          </div>
+          <div class="campo-curso">
+            <label for="filtro-certificado">Certificado</label>
+            <select id="filtro-certificado"><option value="">Todas as condições</option></select>
+          </div>
+          <button type="button" id="limpar-filtros-cursos" class="botao botao-secundario">Limpar filtros</button>
+        </form>
+        <p id="contador-cursos" class="contador-cursos" role="status"></p>
+        <ul id="lista-cursos" class="cards lista-cursos"></ul>
+      </section>
+
+      <section id="plataformas" class="secao-cursos" aria-labelledby="titulo-plataformas">
+        <h2 id="titulo-plataformas">Plataformas</h2>
+        <ul id="lista-plataformas" class="lista-plataformas">
+          <!-- Lista estática: continua útil sem JavaScript ou se o JSON não carregar. -->
+          <li><a href="https://www.ev.org.br/cursos" target="_blank" rel="noopener">Escola Virtual da Fundação Bradesco<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
+          <li><a href="https://aprendamais.mec.gov.br/" target="_blank" rel="noopener">Aprenda Mais (MEC)<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
+          <li><a href="https://www.escolavirtual.gov.br/" target="_blank" rel="noopener">Escola Virtual.Gov (Enap)<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
+          <li><a href="https://www.cursoemvideo.com/" target="_blank" rel="noopener">Curso em Vídeo<span class="visualmente-oculto"> (abre em nova aba)</span></a></li>
+        </ul>
+        <p class="aviso-cursos">Coloque no currículo só cursos que você concluiu. Os certificados são emitidos pelas instituições de cada curso: o Curriculum CPM não emite certificados nem diplomas.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <h2 class="footer-titulo">Curriculum CPM</h2>
+        <p>Plataforma desenvolvida para auxiliar alunos na criação de currículos, busca por oportunidades e acesso a cursos gratuitos.</p>
+      </div>
+      <nav class="footer-links" aria-label="Links do rodapé">
+        <h2 class="footer-titulo">Links</h2>
+        <a href="index.html">Início</a>
+        <a href="curriculo.html">Criar Currículo</a>
+        <a href="vercurriculos.html">Talentos</a>
+        <a href="certificados.html">Cursos</a>
+        <a href="guia-primeiro-emprego.html">Guia do Primeiro Emprego</a>
+        <a href="quem-somos-nos.html">Sobre Nós</a>
+      </nav>
+      <div class="footer-contato">
+        <h2 class="footer-titulo">Contato</h2>
+        <p>E-mail: eptcurriculos@gmail.com</p>
+        <p>3º CPM</p>
+      </div>
+      <div class="footer-acessibilidade">
+        <h2 class="footer-titulo">Acessibilidade</h2>
+        <button type="button" class="botao-vlibras" aria-pressed="false" data-acessibilidade="vlibras">Tradução em Libras (VLibras)</button>
+        <p class="nota-vlibras">Recurso complementar do Governo Federal, carregado só se você ativar.</p>
+        <p id="estado-vlibras" class="estado-vlibras" role="status"></p>
+      </div>
+    </div>
+    <p class="copyright">© 2026 Curriculum CPM - Todos os direitos reservados.</p>
+  </footer>
+
+    <button class="chatbot" type="button" aria-label="Abrir chat de atendimento"></button>
+    <script src="js/menu.js"></script>
+  <script src="js/nina-conteudo.js"></script>
+  <script src="js/entrevista-perguntas.js"></script>
+  <script src="js/entrevista.js"></script>
+  <script src="js/chatbot.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/acessibilidade.js"></script>
+  </body>
+</html>

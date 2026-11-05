@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar Currículo | Curriculum CPM</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/site-chrome.css">
+  <link rel="stylesheet" href="css/chatbot.css">
+  <link rel="stylesheet" href="css/curriculo.css">
+  <!-- Folha do currículo gerado (prévia e impressão); isolada da folha de curriculo-aluno.html. -->
+  <link rel="stylesheet" href="css/curriculo-documento.css">
+  <!-- Modelo de dados (regras e conversões) antes da interface do formulário. -->
+  <script src="js/normalizar-texto.js" defer></script>
+  <script src="js/curriculo-modelo.js" defer></script>
+  <script src="js/curriculo-formulario.js" defer></script>
+  <script src="js/curriculo-documento.js" defer></script>
+  <script src="js/curriculo-previa.js" defer></script>
+</head>
+  <body>
+  <script src="js/tema-inicial.js"></script>
+  <a class="pular-conteudo" href="#conteudo">Pular para o conteúdo principal</a>
+    <header class="site-header">
+    <nav class="site-nav" aria-label="Navegação principal">
+      <a class="logo" href="index.html">
+        <img src="logo3cpm.png" alt="Logo do 3º CPM" width="52" height="52">
+        <span>Curriculum CPM</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" hidden>
+        <svg class="icone-abrir" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
+        <svg class="icone-fechar" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19 5 17.6l5.6-5.6L5 6.4 6.4 5Z"/></svg>
+        <span>Menu</span>
+      </button>
+      <div class="menu" id="menu-principal">
+        <a href="index.html">Início</a>
+        <a class="ativo" aria-current="page" href="curriculo.html">Criar Currículo</a>
+        <a href="vercurriculos.html">Talentos</a>
+        <a href="certificados.html">Cursos</a>
+        <a href="quem-somos-nos.html">Sobre Nós</a>
+      </div>
+      <!-- Controles à direita: tamanho do texto (js/acessibilidade.js) e tema (js/main.js). -->
+      <div class="controles-cabecalho">
+        <button class="botao-texto" type="button" aria-pressed="false" data-acessibilidade="texto">A+<span class="visualmente-oculto"> Aumentar texto</span></button>
+        <button class="theme-toggle" type="button" aria-label="Modo escuro" aria-pressed="false">
+          <span class="theme-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0-5 1 3h-2l1-3Zm0 20-1-3h2l-1 3ZM2 12l3-1v2l-3-1Zm20 0-3 1v-2l3 1ZM4.9 4.9l2.8 1.4-1.4 1.4-1.4-2.8Zm14.2 14.2-2.8-1.4 1.4-1.4 1.4 2.8Zm0-14.2-1.4 2.8-1.4-1.4 2.8-1.4ZM4.9 19.1l1.4-2.8 1.4 1.4-2.8 1.4Z"/></svg></span>
+          <span class="theme-track" aria-hidden="true"><span class="theme-thumb"></span></span>
+          <span class="theme-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"/></svg></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+    <main id="conteudo">
+      <section class="dicas">
+        <h2>Dicas para um bom currículo</h2>
+
+        <div class="cards">
+          <div class="card">
+            <h3>Revise seu currículo</h3>
+            <p>
+              Leia tudo antes de enviar para evitar erros de português.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Use um e-mail profissional</h3>
+            <p>
+              Prefira um endereço com seu nome e sobrenome.
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Inclua cursos</h3>
+            <p>
+              Cursos mostram interesse em aprender e desenvolver novas habilidades.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Editor: formulário à esquerda e prévia à direita no desktop; um embaixo do outro no celular. -->
+      <div class="editor-layout">
+      <section class="curriculo" id="formulario">
+        <h1>Crie seu currículo</h1>
+        <p class="introducao-formulario">Preencha as seções abaixo, na ordem que preferir. Não tem experiência profissional? Tudo bem: projetos da escola, cursos e atividades também contam.</p>
+        <p class="dica-formulario">Campos com <span class="obrigatorio" aria-hidden="true">*</span><span class="visualmente-oculto">asterisco</span> são obrigatórios. Os demais estão marcados como opcionais.</p>
+
+        <noscript>
+          <p class="aviso-noscript">Para adicionar habilidades, experiências, cursos e foto, ative o JavaScript no navegador.</p>
+        </noscript>
+
+        <!-- Aparece só quando a pessoa guardou um rascunho antes; nada é restaurado sem ela pedir. -->
+        <div id="rascunho-encontrado" class="aviso-rascunho" hidden>
+          <p><strong>Há um rascunho guardado neste navegador.</strong> <span id="data-rascunho"></span></p>
+          <div class="acoes">
+            <button type="button" id="restaurar-rascunho" class="botao">Continuar o rascunho</button>
+            <button type="button" id="descartar-rascunho" class="botao botao-secundario">Apagar rascunho</button>
+          </div>
+        </div>
+
+        <!-- Escolha do modelo: cartões com miniatura real (js/curriculo-previa.js). Sem JavaScript fica oculta. -->
+        <section id="escolha-modelo" class="escolha-modelo" aria-labelledby="titulo-escolha-modelo" hidden>
+          <h2 id="titulo-escolha-modelo">Escolha o modelo do seu currículo</h2>
+          <p class="secao-intro">Todos os modelos usam os mesmos dados: troque quando quiser, sem perder nada. A prévia ao lado (ou abaixo, no celular) mostra o resultado.</p>
+          <ul id="lista-modelos" class="lista-modelos"></ul>
+        </section>
+
+        <!-- Índice das seções; depois de uma tentativa de envio, marca as que precisam de revisão. -->
+        <nav class="secoes-nav" aria-labelledby="titulo-secoes">
+          <h2 id="titulo-secoes" class="secoes-titulo">Seções</h2>
+          <ol>
+            <li><a href="#secao-dados">Dados pessoais e contato</a> <span class="selo" data-selo="secao-dados">Obrigatória</span></li>
+            <li><a href="#secao-objetivo">Objetivo profissional</a> <span class="selo" data-selo="secao-objetivo">Obrigatória</span></li>
+            <li><a href="#secao-formacao">Formação</a> <span class="selo" data-selo="secao-formacao">Obrigatória</span></li>
+            <li><a href="#secao-habilidades">Habilidades</a> <span class="selo" data-selo="secao-habilidades">Obrigatória</span></li>
+            <li><a href="#secao-experiencias">Experiência profissional</a> <span class="selo selo-opcional" data-selo="secao-experiencias">Opcional</span></li>
+            <li><a href="#secao-projetos">Projetos</a> <span class="selo selo-opcional" data-selo="secao-projetos">Opcional</span></li>
+            <li><a href="#secao-voluntariado">Trabalho voluntário</a> <span class="selo selo-opcional" data-selo="secao-voluntariado">Opcional</span></li>
+            <li><a href="#secao-cursos">Cursos e certificados</a> <span class="selo selo-opcional" data-selo="secao-cursos">Opcional</span></li>
+            <li><a href="#secao-foto">Fotografia</a> <span class="selo selo-opcional" data-selo="secao-foto">Opcional</span></li>
+            <li><a href="#secao-salvar">Revisar e salvar</a></li>
+            <li><a href="#secao-envio">Solicitar publicação</a> <span class="selo selo-opcional" data-selo="secao-envio">Opcional</span></li>
+          </ol>
+        </nav>
+
+        <!-- O action, o method e os nomes antigos dos campos são os mesmos de antes (Formspree).
+             js/curriculo-formulario.js desliga a validação nativa, valida tudo antes do envio
+             e preenche os campos ocultos. Só o botão "Enviar currículo para a equipe" envia. -->
+        <form id="form-curriculo" action="https://formspree.io/f/xeeykpoe" method="POST">
+
+          <!-- Resumo de erros: recebe o foco quando o envio é bloqueado. -->
+          <div id="resumo-erros" class="resumo-erros" role="group" aria-labelledby="titulo-resumo-erros" tabindex="-1" hidden>
+            <h2 id="titulo-resumo-erros">Revise os campos abaixo</h2>
+            <ul id="lista-resumo-erros"></ul>
+          </div>
+
+          <!-- 1. Dados pessoais e contato -->
+          <section class="secao-form" id="secao-dados" aria-labelledby="titulo-secao-dados">
+            <h2 id="titulo-secao-dados"><span class="secao-numero" aria-hidden="true">1</span>Dados pessoais e contato</h2>
+            <p class="secao-intro">Não é preciso informar CPF, RG, data de nascimento nem endereço completo.</p>
+
+            <div class="grade-campos">
+              <div class="campo campo-largo">
+                <label for="nome">Nome completo <span class="obrigatorio" aria-hidden="true">*</span></label>
+                <p class="dica-campo" id="dica-nome">Como deve aparecer no currículo, sem abreviações.</p>
+                <input type="text" id="nome" name="nome_completo" data-campo="nome" autocomplete="name" required aria-describedby="dica-nome">
+              </div>
+
+              <div class="campo">
+                <label for="email">E-mail <span class="obrigatorio" aria-hidden="true">*</span></label>
+                <p class="dica-campo" id="dica-email">Prefira um e-mail com seu nome. Ex.: nome.sobrenome@gmail.com</p>
+                <input type="email" id="email" name="email" data-campo="contato.email" autocomplete="email" spellcheck="false" required aria-describedby="dica-email">
+              </div>
+
+              <div class="campo">
+                <label for="cidade">Cidade e estado <span class="obrigatorio" aria-hidden="true">*</span></label>
+                <p class="dica-campo" id="dica-cidade">Ex.: Cornélio Procópio, PR</p>
+                <input type="text" id="cidade" name="cidade" data-campo="contato.cidade" required aria-describedby="dica-cidade">
+              </div>
+
+              <div class="campo">
+                <label for="telefone">Telefone <span class="opcional">(opcional)</span></label>
+                <p class="dica-campo" id="dica-telefone">Com DDD. Ex.: (43) 99999-9999</p>
+                <input type="tel" id="telefone" name="telefone" data-campo="contato.telefone" autocomplete="tel-national" inputmode="tel" aria-describedby="dica-telefone">
+              </div>
+
+              <div class="campo">
+                <label for="linkedin">LinkedIn <span class="opcional">(opcional)</span></label>
+                <p class="dica-campo" id="dica-linkedin">Ex.: https://www.linkedin.com/in/seu-nome</p>
+                <input type="url" id="linkedin" name="linkedin" data-campo="contato.linkedin" autocomplete="url" spellcheck="false" aria-describedby="dica-linkedin">
+              </div>
+
+              <div class="campo">
+                <label for="github">GitHub <span class="opcional">(opcional)</span></label>
+                <p class="dica-campo" id="dica-github">Para quem tem projetos de programação. Ex.: https://github.com/seu-usuario</p>
+                <input type="url" id="github" name="github" data-campo="contato.github" spellcheck="false" aria-describedby="dica-github">
+              </div>
+
+              <div class="campo">
+                <label for="portfolio">Portfólio ou site pessoal <span class="opcional">(opcional)</span></label>
+                <p class="dica-campo" id="dica-portfolio">Ex.: https://seu-nome.github.io</p>
+                <input type="url" id="portfolio" name="portfolio" data-campo="contato.portfolio" spellcheck="false" aria-describedby="dica-portfolio">
+              </div>
+            </div>
+          </section>
+
+          <!-- 2. Objetivo profissional -->
+          <section class="secao-form" id="secao-objetivo" aria-labelledby="titulo-secao-objetivo">
+            <h2 id="titulo-secao-objetivo"><span class="secao-numero" aria-hidden="true">2</span>Objetivo profissional</h2>
+
+            <div class="campo">
+              <label for="area">Área de interesse <span class="obrigatorio" aria-hidden="true">*</span></label>
+              <p class="dica-campo" id="dica-area">Escolha uma sugestão ou escreva. Separe com vírgula se houver mais de uma. Ex.: Desenvolvimento web, Suporte técnico</p>
+              <input type="text" id="area" name="area_interesse" data-campo="objetivo.areas" list="sugestoes-areas" autocomplete="off" required aria-describedby="dica-area">
+              <datalist id="sugestoes-areas">
+                <option value="Desenvolvimento de sistemas"></option>
+                <option value="Desenvolvimento web"></option>
+                <option value="Suporte técnico em informática"></option>
+                <option value="Atendimento ao público"></option>
+                <option value="Administração"></option>
+                <option value="Vendas e comércio"></option>
+                <option value="Design gráfico"></option>
+              </datalist>
+            </div>
+
+            <fieldset class="campo grupo-opcoes" data-campo-grupo="objetivo.tipos_oportunidade" aria-describedby="dica-oportunidade">
+              <legend>Tipo de oportunidade desejada <span class="obrigatorio" aria-hidden="true">*</span></legend>
+              <p class="dica-campo" id="dica-oportunidade">Marque uma ou mais opções.</p>
+              <div class="opcoes">
+                <label class="opcao"><input type="checkbox" value="Estágio" data-campo="objetivo.tipos_oportunidade"> Estágio</label>
+                <label class="opcao"><input type="checkbox" value="Jovem aprendiz" data-campo="objetivo.tipos_oportunidade"> Jovem aprendiz</label>
+                <label class="opcao"><input type="checkbox" value="Primeiro emprego" data-campo="objetivo.tipos_oportunidade"> Primeiro emprego</label>
+                <label class="opcao"><input type="checkbox" value="Trabalho efetivo" data-campo="objetivo.tipos_oportunidade"> Trabalho efetivo</label>
+                <label class="opcao"><input type="checkbox" value="Outras oportunidades" data-campo="objetivo.tipos_oportunidade"> Outras oportunidades</label>
+              </div>
+            </fieldset>
+
+            <div class="campo">
+              <label for="objetivo">Objetivo em poucas palavras <span class="obrigatorio" aria-hidden="true">*</span></label>
+              <p class="dica-campo" id="dica-objetivo">Uma ou duas frases sobre o que você procura e o que pode oferecer. Ex.: Busco meu primeiro estágio em desenvolvimento de sistemas para aplicar o que aprendo no curso técnico.</p>
+              <textarea id="objetivo" name="objetivo_profissional" data-campo="objetivo.texto" rows="4" required aria-describedby="dica-objetivo contador-objetivo"></textarea>
+              <p class="contador-caracteres" id="contador-objetivo" data-contador-de="objetivo"></p>
+            </div>
+
+            <div class="campo">
+              <label for="resumo">Apresentação pessoal ou resumo <span class="opcional">(opcional)</span></label>
+              <p class="dica-campo" id="dica-resumo">Quem é você, o que já aprendeu e o que sabe fazer, em até 4 linhas. Aparece como "Resumo" ou "Apresentação pessoal", conforme o modelo. Ex.: Estudante do 2º ano do técnico em Desenvolvimento de Sistemas, organizada e com facilidade para aprender.</p>
+              <textarea id="resumo" name="resumo_profissional" data-campo="objetivo.resumo" rows="4" aria-describedby="dica-resumo contador-resumo"></textarea>
+              <p class="contador-caracteres" id="contador-resumo" data-contador-de="resumo"></p>
+            </div>
+          </section>
+
+          <!-- 3. Formação (os nomes curso e ano vêm do formulário original) -->
+          <section class="secao-form" id="secao-formacao" aria-labelledby="titulo-secao-formacao">
+            <h2 id="titulo-secao-formacao"><span class="secao-numero" aria-hidden="true">3</span>Formação</h2>
+            <p class="secao-intro">Seu curso atual. Outros cursos entram na seção "Cursos e certificados".</p>
+
+            <div class="grade-campos">
+              <div class="campo campo-largo">
+                <label for="curso">Curso <span class="obrigatorio" aria-hidden="true">*</span></label>
+                <p class="dica-campo" id="dica-curso">Ex.: Ensino Médio integrado ao Técnico em Desenvolvimento de Sistemas</p>
+                <input type="text" id="curso" name="curso" data-campo="formacao.0.curso" required aria-describedby="dica-curso">
+              </div>
+
+              <div class="campo campo-largo">
+                <label for="instituicao">Instituição <span class="obrigatorio" aria-hidden="true">*</span></label>
+                <p class="dica-campo" id="dica-instituicao">Ex.: 3º Colégio da Polícia Militar do Paraná</p>
+                <input type="text" id="instituicao" name="instituicao" data-campo="formacao.0.instituicao" required aria-describedby="dica-instituicao">
+              </div>
+
+              <div class="campo">
+                <label for="periodo">Período <span class="opcional">(opcional)</span></label>
+                <p class="dica-campo" id="dica-periodo">Ex.: 2025 – 2027</p>
+                <input type="text" id="periodo" name="periodo" data-campo="formacao.0.periodo" aria-describedby="dica-periodo">
+              </div>
+
+              <div class="campo">
+                <label for="ano">Situação ou previsão de conclusão <span class="obrigatorio" aria-hidden="true">*</span></label>
+                <p class="dica-campo" id="dica-ano">Ex.: Cursando o 2º ano, conclusão prevista para dezembro de 2027</p>
+                <input type="text" id="ano" name="ano" data-campo="formacao.0.situacao" required aria-describedby="dica-ano">
+              </div>
+            </div>
+          </section>
+
+          <!-- 4. Habilidades: tags (sugestões e habilidades escritas pela pessoa), sem repetição. -->
+          <section class="secao-form" id="secao-habilidades" aria-labelledby="titulo-secao-habilidades">
+            <h2 id="titulo-secao-habilidades"><span class="secao-numero" aria-hidden="true">4</span>Habilidades</h2>
+            <p class="secao-intro">Toque nas sugestões ou escreva outras. Inclua pelo menos uma. Para quem ainda não trabalhou, organização, pontualidade e trabalho em equipe também contam.</p>
+            <p class="erro-campo" id="erro-habilidades" hidden></p>
+
+            <div class="grupo-tags" data-grupo-tags="tecnicas">
+              <h3 id="titulo-tags-tecnicas">Técnicas <span class="opcional">(hard skills)</span></h3>
+              <div class="sugestoes-tags" role="group" aria-labelledby="titulo-tags-tecnicas" data-sugestoes="tecnicas"></div>
+              <ul class="tags-escolhidas" data-tags="tecnicas" aria-label="Habilidades técnicas escolhidas"></ul>
+              <div class="campo campo-tag">
+                <label for="nova-tecnicas">Outra habilidade técnica</label>
+                <div class="linha-tag">
+                  <input type="text" id="nova-tecnicas" data-tag-entrada="tecnicas" autocomplete="off" aria-describedby="dica-nova-tecnicas">
+                  <button type="button" class="botao botao-secundario" data-tag-adicionar="tecnicas">Adicionar</button>
+                </div>
+                <p class="dica-campo" id="dica-nova-tecnicas">Ex.: Canva, Word, Figma. Pressione Enter ou "Adicionar".</p>
+              </div>
+            </div>
+
+            <div class="grupo-tags" data-grupo-tags="comportamentais">
+              <h3 id="titulo-tags-comportamentais">Comportamentais <span class="opcional">(soft skills)</span></h3>
+              <div class="sugestoes-tags" role="group" aria-labelledby="titulo-tags-comportamentais" data-sugestoes="comportamentais"></div>
+              <ul class="tags-escolhidas" data-tags="comportamentais" aria-label="Habilidades comportamentais escolhidas"></ul>
+              <div class="campo campo-tag">
+                <label for="nova-comportamentais">Outra habilidade comportamental</label>
+                <div class="linha-tag">
+                  <input type="text" id="nova-comportamentais" data-tag-entrada="comportamentais" autocomplete="off" aria-describedby="dica-nova-comportamentais">
+                  <button type="button" class="botao botao-secundario" data-tag-adicionar="comportamentais">Adicionar</button>
+                </div>
+                <p class="dica-campo" id="dica-nova-comportamentais">Ex.: Pontualidade, Liderança, Atendimento ao público.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 5. Experiência profissional (opcional) -->
+          <section class="secao-form" id="secao-experiencias" aria-labelledby="titulo-secao-experiencias">
+            <h2 id="titulo-secao-experiencias"><span class="secao-numero" aria-hidden="true">5</span>Experiência profissional <span class="opcional">(opcional)</span></h2>
+            <p class="secao-intro">Empregos, estágios ou programas de aprendizagem. Ainda não trabalhou? Pule esta seção: projetos, cursos e voluntariado mostram suas competências.</p>
+            <p class="lista-vazia" data-vazia="experiencias">Nenhuma experiência adicionada.</p>
+            <ol class="lista-itens" id="lista-experiencias" data-lista="experiencias" aria-label="Experiências profissionais"></ol>
+            <button type="button" class="botao botao-secundario botao-adicionar" data-adicionar="experiencias">Adicionar experiência</button>
+            <p class="dica-campo aviso-limite" data-limite="experiencias" hidden>Você chegou ao limite de 10 experiências.</p>
+          </section>
+
+          <!-- 6. Projetos (opcional) -->
+          <section class="secao-form" id="secao-projetos" aria-labelledby="titulo-secao-projetos">
+            <h2 id="titulo-secao-projetos"><span class="secao-numero" aria-hidden="true">6</span>Projetos <span class="opcional">(opcional)</span></h2>
+            <p class="secao-intro">Trabalhos da escola, do curso técnico, feiras, olimpíadas, iniciação científica ou projetos pessoais.</p>
+            <p class="lista-vazia" data-vazia="projetos">Nenhum projeto adicionado.</p>
+            <ol class="lista-itens" id="lista-projetos" data-lista="projetos" aria-label="Projetos"></ol>
+            <button type="button" class="botao botao-secundario botao-adicionar" data-adicionar="projetos">Adicionar projeto</button>
+            <p class="dica-campo aviso-limite" data-limite="projetos" hidden>Você chegou ao limite de 10 projetos.</p>
+          </section>
+
+          <!-- 7. Trabalho voluntário (opcional) -->
+          <section class="secao-form" id="secao-voluntariado" aria-labelledby="titulo-secao-voluntariado">
+            <h2 id="titulo-secao-voluntariado"><span class="secao-numero" aria-hidden="true">7</span>Trabalho voluntário <span class="opcional">(opcional)</span></h2>
+            <p class="secao-intro">Ações sociais, monitoria, grêmio estudantil, campanhas ou eventos em que você ajudou.</p>
+            <p class="lista-vazia" data-vazia="voluntariado">Nenhum trabalho voluntário adicionado.</p>
+            <ol class="lista-itens" id="lista-voluntariado" data-lista="voluntariado" aria-label="Trabalhos voluntários"></ol>
+            <button type="button" class="botao botao-secundario botao-adicionar" data-adicionar="voluntariado">Adicionar trabalho voluntário</button>
+            <p class="dica-campo aviso-limite" data-limite="voluntariado" hidden>Você chegou ao limite de 6 trabalhos voluntários.</p>
+          </section>
+
+          <!-- 8. Cursos e certificados (opcional) -->
+          <section class="secao-form" id="secao-cursos" aria-labelledby="titulo-secao-cursos">
+            <h2 id="titulo-secao-cursos"><span class="secao-numero" aria-hidden="true">8</span>Cursos e certificados <span class="opcional">(opcional)</span></h2>
+            <p class="secao-intro">Só cursos que você realmente fez. Procurando um? Veja a página <a href="certificados.html">Cursos</a>.</p>
+            <p class="lista-vazia" data-vazia="cursos">Nenhum curso adicionado.</p>
+            <ol class="lista-itens" id="lista-cursos" data-lista="cursos" aria-label="Cursos e certificados"></ol>
+            <button type="button" class="botao botao-secundario botao-adicionar" data-adicionar="cursos">Adicionar curso ou certificado</button>
+            <p class="dica-campo aviso-limite" data-limite="cursos" hidden>Você chegou ao limite de 12 cursos.</p>
+          </section>
+
+          <!-- 9. Fotografia: o campo de arquivo não tem "name", então nunca é enviado. -->
+          <section class="secao-form" id="secao-foto" aria-labelledby="titulo-secao-foto">
+            <h2 id="titulo-secao-foto"><span class="secao-numero" aria-hidden="true">9</span>Fotografia <span class="opcional">(opcional)</span></h2>
+            <p class="secao-intro">Usada só no modelo Moderno, neste navegador. <strong>A foto não é enviada, salva nem exportada.</strong></p>
+
+            <div class="campo-foto">
+              <div class="campo">
+                <label for="foto">Escolher foto <span class="opcional">(opcional)</span></label>
+                <p class="dica-campo" id="dica-foto">JPG, PNG ou WebP, até 5 MB e com pelo menos 200 × 200 px. Prefira uma foto de rosto, com fundo neutro.</p>
+                <input type="file" id="foto" data-campo="foto" accept="image/jpeg,image/png,image/webp" aria-describedby="dica-foto">
+              </div>
+              <figure id="previa-foto" class="previa-foto" hidden>
+                <img id="imagem-previa" alt="Prévia da foto escolhida" width="160" height="160">
+                <figcaption id="info-foto"></figcaption>
+                <button type="button" id="remover-foto" class="botao botao-secundario">Remover foto</button>
+              </figure>
+            </div>
+          </section>
+
+          <!-- Revisar, salvar e continuar depois: nada sai do computador. -->
+          <section class="secao-form" id="secao-salvar" aria-labelledby="titulo-secao-salvar">
+            <h2 id="titulo-secao-salvar">Revisar, salvar e continuar depois</h2>
+
+            <!-- Aparece só com JavaScript (js/curriculo-previa.js). -->
+            <div id="caixa-previa" class="caixa-previa" hidden>
+              <h3>Prévia e PDF</h3>
+              <p>A prévia mostra o currículo no modelo escolhido, com a cor e a fonte que você definir. Na prévia, <strong>Salvar em PDF</strong> abre a janela de impressão do navegador, onde você escolhe <strong>Salvar como PDF</strong>. Nada é enviado nem publicado.</p>
+              <button type="button" id="visualizar-curriculo" class="botao">Ir para a prévia</button>
+            </div>
+
+            <div class="caixa-rascunho">
+              <h3>Salvar progresso <span class="opcional">(opcional)</span></h3>
+              <p>Por padrão, nada fica guardado. Se você salvar o progresso, os dados ficam neste navegador e <strong>qualquer pessoa que use este dispositivo poderá vê-los</strong>. Não use em computadores compartilhados, como os da escola. A foto não é salva.</p>
+              <div class="acoes">
+                <button type="button" id="guardar-rascunho" class="botao botao-secundario">Salvar progresso neste dispositivo</button>
+                <button type="button" id="recuperar-rascunho" class="botao botao-secundario">Recuperar rascunho</button>
+                <button type="button" id="apagar-dados" class="botao botao-secundario">Apagar dados salvos</button>
+                <button type="button" id="novo-curriculo" class="botao botao-secundario">Começar novo currículo</button>
+              </div>
+              <p id="estado-rascunho" class="estado-rascunho" role="status"></p>
+            </div>
+
+            <div class="caixa-rascunho">
+              <h3>Continuar em outro computador <span class="opcional">(opcional)</span></h3>
+              <p><strong>Exportar dados</strong> baixa um arquivo .json com o que você preencheu (sem a foto). Em outro computador, use <strong>Importar dados</strong> para continuar. Guarde o arquivo com cuidado: ele contém seus dados pessoais.</p>
+              <div class="acoes">
+                <button type="button" id="exportar-dados" class="botao botao-secundario">Exportar dados</button>
+                <button type="button" id="importar-dados" class="botao botao-secundario">Importar dados</button>
+                <input type="file" id="arquivo-importar" accept="application/json,.json" hidden>
+              </div>
+              <p id="estado-arquivo" class="estado-rascunho" role="status"></p>
+            </div>
+          </section>
+
+          <!-- Solicitar publicação: envio independente do PDF, só com autorização marcada pela pessoa. -->
+          <section class="secao-form secao-envio" id="secao-envio" aria-labelledby="titulo-secao-envio">
+            <h2 id="titulo-secao-envio">Solicitar publicação no catálogo <span class="opcional">(opcional)</span></h2>
+            <p>Para salvar o PDF, não é preciso enviar nada. Envie só se quiser que a equipe avalie a inclusão do seu perfil na página Talentos.</p>
+
+            <div class="autorizacao" id="texto-autorizacao">
+              <h3>Antes de enviar, leia:</h3>
+              <ul>
+                <li><strong>O que é enviado:</strong> os dados deste formulário (contato, objetivo, formação, habilidades, experiências, projetos, voluntariado e cursos). A foto não é enviada.</li>
+                <li><strong>Quem recebe:</strong> a equipe do Curriculum CPM (eptcurriculos@gmail.com), por meio do serviço Formspree, que entrega o formulário por e-mail.</li>
+                <li><strong>Para quê:</strong> avaliar a inclusão do seu currículo no catálogo de estudantes.</li>
+                <li><strong>O que pode ser publicado:</strong> nome, cidade, objetivo, formação, habilidades, experiências, projetos, cursos e links profissionais. E-mail e telefone servem só para a equipe falar com você.</li>
+                <li><strong>Publicação não é automática:</strong> depende da análise da equipe e do termo de autorização (LGPD). Para menores de 18 anos, o termo deve ser assinado pelo responsável; esta caixa não substitui essa autorização.</li>
+                <li><strong>Correção ou remoção:</strong> a qualquer momento, pelo e-mail eptcurriculos@gmail.com.</li>
+              </ul>
+            </div>
+
+            <div class="campo campo-autorizacao">
+              <label class="opcao opcao-autorizacao">
+                <input type="checkbox" id="autorizacao" name="autorizacao_publicacao" value="Autorizo o envio para avaliação da equipe" data-campo="autorizacao" aria-describedby="texto-autorizacao">
+                Li as informações acima e autorizo o envio destes dados à equipe para avaliação.
+              </label>
+            </div>
+
+            <input type="hidden" name="_subject" value="Novo currículo enviado pelo site">
+            <input type="hidden" name="tipo_solicitacao" value="publicacao_curriculo">
+            <input type="hidden" name="tipos_oportunidade">
+            <input type="hidden" name="habilidades">
+            <input type="hidden" name="experiencias">
+            <input type="hidden" name="projetos">
+            <input type="hidden" name="voluntariado">
+            <input type="hidden" name="cursos_certificados">
+            <input type="hidden" name="curriculo_json">
+
+            <button type="submit" id="enviar-curriculo" class="botao-criar-curriculo">Solicitar publicação</button>
+            <div id="estado-envio" class="estado-envio" role="status" tabindex="-1"></div>
+          </section>
+        </form>
+
+        <!-- Anúncios de itens adicionados e removidos, para leitores de tela. -->
+        <p id="aviso-formulario" class="visualmente-oculto" role="status"></p>
+
+        <!-- Modelos dos itens das listas. O JavaScript copia, numera e liga rótulos e campos. -->
+        <template id="modelo-experiencias">
+          <li class="item-lista">
+            <fieldset>
+              <legend class="item-titulo">Experiência <span data-numero></span></legend>
+              <div class="grade-campos">
+                <div class="campo">
+                  <label data-para="organizacao">Empresa ou organização <span class="obrigatorio" aria-hidden="true">*</span></label>
+                  <input type="text" data-campo="organizacao">
+                </div>
+                <div class="campo">
+                  <label data-para="cargo">Cargo ou atividade <span class="obrigatorio" aria-hidden="true">*</span></label>
+                  <p class="dica-campo" data-dica="cargo">Ex.: Auxiliar administrativo, Jovem aprendiz</p>
+                  <input type="text" data-campo="cargo">
+                </div>
+                <div class="campo">
+                  <label data-para="periodo">Período <span class="opcional">(opcional)</span></label>
+                  <p class="dica-campo" data-dica="periodo">Ex.: Mar. 2025 – atual</p>
+                  <input type="text" data-campo="periodo">
+                </div>
+                <div class="campo campo-largo">
+                  <label data-para="descricao">Principais responsabilidades <span class="opcional">(opcional)</span></label>
+                  <p class="dica-campo" data-dica="descricao">Ex.: Atendimento ao público; organização de documentos; cadastro em sistemas.</p>
+                  <textarea data-campo="descricao" rows="3"></textarea>
+                  <p class="contador-caracteres" data-contador-de="descricao"></p>
+                </div>
+              </div>
+              <button type="button" class="botao-remover" data-acao="remover">Remover<span class="visualmente-oculto"> experiência <span data-numero></span></span></button>
+            </fieldset>
+          </li>
+        </template>
+
+        <template id="modelo-projetos">
+          <li class="item-lista">
+            <fieldset>
+              <legend class="item-titulo">Projeto <span data-numero></span></legend>
+              <div class="grade-campos">
+                <div class="campo campo-largo">
+                  <label data-para="nome">Nome do projeto <span class="obrigatorio" aria-hidden="true">*</span></label>
+                  <p class="dica-campo" data-dica="nome">Ex.: Site da Feira de Ciências</p>
+                  <input type="text" data-campo="nome">
+                </div>
+                <div class="campo campo-largo">
+                  <label data-para="descricao">Descrição <span class="opcional">(opcional)</span></label>
+                  <p class="dica-campo" data-dica="descricao">O que o projeto faz e qual foi a sua parte.</p>
+                  <textarea data-campo="descricao" rows="3"></textarea>
+                  <p class="contador-caracteres" data-contador-de="descricao"></p>
+                </div>
+                <div class="campo">
+                  <label data-para="tecnologias">Tecnologias utilizadas <span class="opcional">(opcional)</span></label>
+                  <p class="dica-campo" data-dica="tecnologias">Ex.: HTML, CSS, JavaScript</p>
+                  <input type="text" data-campo="tecnologias">
+                </div>
+                <div class="campo">
+                  <label data-para="url">Link <span class="opcional">(opcional)</span></label>
+                  <p class="dica-campo" data-dica="url">Ex.: https://github.com/seu-usuario/projeto</p>
+                  <input type="url" data-campo="url" spellcheck="false">
+                </div>
+              </div>
+              <button type="button" class="botao-remover" data-acao="remover">Remover<span class="visualmente-oculto"> projeto <span data-numero></span></span></button>
+            </fieldset>
+          </li>
+        </template>
+
+        <template id="modelo-voluntariado">
+          <li class="item-lista">
+            <fieldset>
+              <legend class="item-titulo">Trabalho voluntário <span data-numero></span></legend>
+              <div class="grade-campos">
+                <div class="campo">
+                  <label data-para="instituicao">Instituição <span class="obrigatorio" aria-hidden="true">*</span></label>
+                  <p class="dica-campo" data-dica="instituicao">Ex.: Grêmio Estudantil, associação do bairro</p>
+                  <input type="text" data-campo="instituicao">
+                </div>
+                <div class="campo">
+                  <label data-para="periodo">Período <span class="opcional">(opcional)</span></label>
+                  <p class="dica-campo" data-dica="periodo">Ex.: 2025</p>
+                  <input type="text" data-campo="periodo">
+                </div>
+                <div class="campo campo-largo">
+                  <label data-para="atividade">Atividade <span class="obrigatorio" aria-hidden="true">*</span></label>
+                  <p class="dica-campo" data-dica="atividade">Ex.: Organização de campanha de arrecadação de alimentos</p>
+                  <input type="text" data-campo="atividade">
+                </div>
+              </div>
+              <button type="button" class="botao-remover" data-acao="remover">Remover<span class="visualmente-oculto"> trabalho voluntário <span data-numero></span></span></button>
+            </fieldset>
+          </li>
+        </template>
+
+        <template id="modelo-cursos">
+          <li class="item-lista">
+            <fieldset>
+              <legend class="item-titulo">Curso <span data-numero></span></legend>
+              <div class="grade-campos">
+                <div class="campo campo-largo">
+                  <label data-para="nome">Nome do curso <span class="obrigatorio" aria-hidden="true">*</span></label>
+                  <p class="dica-campo" data-dica="nome">Ex.: Lógica de Programação</p>
+                  <input type="text" data-campo="nome">
+                </div>
+                <div class="campo">
+                  <label data-para="instituicao">Instituição ou plataforma <span class="obrigatorio" aria-hidden="true">*</span></label>
+                  <input type="text" data-campo="instituicao">
+                </div>
+                <div class="campo">
+                  <label data-para="carga_horaria">Carga horária <span class="opcional">(opcional)</span></label>
+                  <p class="dica-campo" data-dica="carga_horaria">Ex.: 20 horas</p>
+                  <input type="text" data-campo="carga_horaria">
+                </div>
+                <div class="campo campo-ano">
+                  <label data-para="ano">Ano de conclusão <span class="obrigatorio" aria-hidden="true">*</span></label>
+                  <p class="dica-campo" data-dica="ano">Ex.: 2025</p>
+                  <input type="text" data-campo="ano" inputmode="numeric" autocomplete="off">
+                </div>
+                <div class="campo">
+                  <label data-para="url">Link de comprovação <span class="opcional">(opcional)</span></label>
+                  <p class="dica-campo" data-dica="url">Endereço do certificado, se houver.</p>
+                  <input type="url" data-campo="url" spellcheck="false">
+                </div>
+              </div>
+              <button type="button" class="botao-remover" data-acao="remover">Remover<span class="visualmente-oculto"> curso <span data-numero></span></span></button>
+            </fieldset>
+          </li>
+        </template>
+      </section>
+
+      <!-- Pré-visualização (js/curriculo-previa.js monta a folha com js/curriculo-documento.js). -->
+      <section id="previa" class="previa" aria-labelledby="titulo-previa">
+        <div class="previa-barra">
+          <div class="previa-cabecalho">
+            <h2 id="titulo-previa" tabindex="-1">Pré-visualização do currículo</h2>
+            <p id="estado-previa" class="estado-previa"></p>
+          </div>
+          <div class="acoes">
+            <button type="button" id="salvar-pdf" class="botao" aria-describedby="ajuda-pdf">Salvar em PDF</button>
+            <button type="button" id="atualizar-previa" class="botao botao-secundario">Atualizar prévia</button>
+            <button type="button" id="voltar-editar" class="botao botao-secundario">Voltar e editar</button>
+          </div>
+        </div>
+        <!-- Personalização: cores e fontes de listas fixas (js/curriculo-previa.js). -->
+        <div id="painel-personalizar" class="painel-personalizar">
+          <h3 id="titulo-personalizar">Personalize seu currículo</h3>
+          <p id="modelo-atual" class="modelo-atual"></p>
+          <div id="controles-personalizar" class="controles-personalizar">
+            <fieldset class="seletor-cores">
+              <legend>Cor de destaque</legend>
+              <div id="opcoes-cores" class="opcoes-cores"></div>
+            </fieldset>
+            <div class="seletor-fonte">
+              <label for="fonte-curriculo">Fonte</label>
+              <select id="fonte-curriculo"></select>
+            </div>
+          </div>
+          <p id="aviso-ats" class="dica-campo" hidden>O modelo ATS usa cor e fonte próprias, pensadas para sistemas de seleção. Escolha outro modelo para personalizar.</p>
+        </div>
+
+        <p id="ajuda-pdf" class="ajuda-pdf">"Salvar em PDF" abre a janela de impressão do navegador. Em "Destino", escolha "Salvar como PDF". Se aparecerem a data e o endereço do site nas margens, desmarque "Cabeçalhos e rodapés". O arquivo é criado no seu computador: nada é enviado.</p>
+        <div id="pendencias-previa" class="pendencias-previa" hidden>
+          <p id="texto-pendencias"></p>
+          <button type="button" id="revisar-erros" class="botao botao-secundario">Ver o que falta no formulário</button>
+        </div>
+        <div id="previa-documento" class="previa-documento"><div id="previa-escala" class="previa-escala"></div></div>
+        <p id="aviso-previa" class="visualmente-oculto" role="status"></p>
+      </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <h2 class="footer-titulo">Curriculum CPM</h2>
+        <p>Plataforma desenvolvida para auxiliar alunos na criação de currículos, busca por oportunidades e acesso a cursos gratuitos.</p>
+      </div>
+      <nav class="footer-links" aria-label="Links do rodapé">
+        <h2 class="footer-titulo">Links</h2>
+        <a href="index.html">Início</a>
+        <a href="curriculo.html">Criar Currículo</a>
+        <a href="vercurriculos.html">Talentos</a>
+        <a href="certificados.html">Cursos</a>
+        <a href="guia-primeiro-emprego.html">Guia do Primeiro Emprego</a>
+        <a href="quem-somos-nos.html">Sobre Nós</a>
+      </nav>
+      <div class="footer-contato">
+        <h2 class="footer-titulo">Contato</h2>
+        <p>E-mail: eptcurriculos@gmail.com</p>
+        <p>3º CPM</p>
+      </div>
+      <div class="footer-acessibilidade">
+        <h2 class="footer-titulo">Acessibilidade</h2>
+        <button type="button" class="botao-vlibras" aria-pressed="false" data-acessibilidade="vlibras">Tradução em Libras (VLibras)</button>
+        <p class="nota-vlibras">Recurso complementar do Governo Federal, carregado só se você ativar.</p>
+        <p id="estado-vlibras" class="estado-vlibras" role="status"></p>
+      </div>
+    </div>
+    <p class="copyright">© 2026 Curriculum CPM - Todos os direitos reservados.</p>
+  </footer>
+
+    <button class="chatbot" type="button" aria-label="Abrir chat de atendimento"></button>
+    <script src="js/menu.js"></script>
+  <script src="js/nina-conteudo.js"></script>
+  <script src="js/entrevista-perguntas.js"></script>
+  <script src="js/entrevista.js"></script>
+  <script src="js/chatbot.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/acessibilidade.js"></script>
+  </body>
+</html>

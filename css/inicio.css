@@ -1,0 +1,303 @@
+/* Página inicial — Modelo 2 (Institucional e Elegante).
+   Abertura em duas colunas, indicadores, como funciona, funcionalidades e sobre o projeto.
+   Sem imagens externas: a composição da direita usa só a logomarca local. */
+
+/* Largura de conteúdo comum às seções desta página. */
+.hero,
+.indicadores,
+.como-funciona,
+.funcionalidades,
+.sobre-projeto {
+  padding-inline: max(var(--margem-lateral), calc((100% - var(--largura-max)) / 2));
+}
+
+/* Abertura ---------------------------------------------------------------- */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  align-items: center;
+  gap: var(--esp-7);
+  padding-block: var(--esp-8);
+}
+
+.hero-rotulo,
+.secao-rotulo {
+  margin: 0 0 var(--esp-3);
+  color: var(--cor-destaque);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 16ch;
+  margin-bottom: var(--esp-4);
+  font-size: clamp(2.1rem, 4.4vw, 3.3rem);
+  font-weight: 700;
+  line-height: 1.12;
+}
+
+.hero-descricao {
+  max-width: 46ch;
+  margin: 0 0 var(--esp-6);
+  color: var(--cor-texto-suave);
+  font-size: 1.1rem;
+}
+
+.hero-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-3);
+}
+
+/* Composição da direita: quadro azul com recorte diagonal, moldura deslocada e logomarca. */
+.hero-visual {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  min-height: 260px;
+}
+
+.hero-moldura {
+  position: absolute;
+  inset: 0 0 var(--esp-6) var(--esp-6);
+  border: 2px solid var(--azul-destaque);
+  border-radius: var(--raio-lg);
+  clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%, 0 22%);
+}
+
+.hero-quadro {
+  position: absolute;
+  inset: var(--esp-6) var(--esp-6) 0 0;
+  display: grid;
+  place-items: center;
+  background: var(--azul-profundo);
+  border-radius: var(--raio-lg);
+  clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%, 0 22%);
+}
+
+.hero-quadro img {
+  width: min(48%, 220px);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  padding: 6px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px rgba(255, 255, 255, .08);
+}
+
+.hero-detalhe {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 18%;
+  aspect-ratio: 1;
+  background: var(--azul-destaque);
+  border-radius: var(--raio-md);
+  opacity: .9;
+}
+
+/* Indicadores ------------------------------------------------------------- */
+.indicadores {
+  padding-block: var(--esp-6);
+  background: var(--cor-fundo-secundario);
+  border-block: 1px solid var(--cor-borda);
+}
+
+.lista-indicadores {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--esp-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.indicador {
+  display: flex;
+  align-items: center;
+  gap: var(--esp-3);
+  padding: var(--esp-4);
+  background: var(--cor-superficie-suave);
+  border-radius: var(--raio-md);
+}
+
+.indicador-icone {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  color: var(--cor-titulo);
+  background: var(--cor-superficie);
+  border-radius: 50%;
+}
+
+.indicador-icone svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.indicador h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.indicador p {
+  margin: 0;
+  color: var(--cor-texto);
+  font-size: .9rem;
+}
+
+/* Cabeçalho comum das seções (rótulo + título). */
+.secao-cabecalho {
+  margin-bottom: var(--esp-5);
+}
+
+.secao-cabecalho h2 {
+  margin: 0;
+}
+
+/* Como funciona ----------------------------------------------------------- */
+.como-funciona,
+.funcionalidades,
+.sobre-projeto {
+  padding-block: var(--esp-7) 0;
+}
+
+.passos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--esp-4);
+  margin: 0 0 var(--esp-5);
+  padding: 0;
+  list-style: none;
+  counter-reset: passo;
+}
+
+.passo {
+  padding: var(--esp-5);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-1);
+  counter-increment: passo;
+}
+
+/* Número do passo (decorativo: a lista <ol> já informa a ordem). */
+.passo::before {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: var(--esp-3);
+  color: var(--cor-sobre-primaria);
+  background: var(--cor-primaria);
+  border-radius: 50%;
+  content: counter(passo) / "";
+  font-weight: 700;
+}
+
+.passo h3 {
+  margin-bottom: var(--esp-2);
+  font-size: 1.05rem;
+}
+
+.passo p {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  font-size: .95rem;
+}
+
+/* Funcionalidades --------------------------------------------------------- */
+.lista-funcionalidades {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.funcionalidade h3 a {
+  color: var(--cor-titulo);
+  text-decoration: none;
+}
+
+.funcionalidade h3 a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.chamada-nina {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-3);
+  margin: var(--esp-5) 0 0;
+  padding: var(--esp-4) var(--esp-5);
+  background: var(--cor-fundo-secundario);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-md);
+}
+
+/* Sobre o projeto --------------------------------------------------------- */
+.sobre-projeto-texto {
+  max-width: 64ch;
+  padding: var(--esp-6);
+  background: var(--cor-fundo-secundario);
+  border-left: 4px solid var(--cor-primaria);
+  border-radius: var(--raio-md);
+}
+
+/* Sobre o fundo secundário, o azul de destaque não atinge 4,5:1; usa o azul principal. */
+.sobre-projeto-texto .secao-rotulo {
+  color: var(--cor-titulo);
+}
+
+.sobre-projeto-texto h2 {
+  margin-bottom: var(--esp-3);
+}
+
+.sobre-projeto-texto p:not(.secao-rotulo) {
+  margin: 0 0 var(--esp-4);
+  color: var(--cor-texto);
+}
+
+/* Tablets: indicadores e passos em duas colunas. */
+@media (max-width: 960px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: var(--esp-6);
+    padding-block: var(--esp-7);
+  }
+
+  .hero-visual {
+    max-width: 520px;
+  }
+
+  .lista-indicadores,
+  .passos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Celulares: uma coluna e botões com a largura da tela. */
+@media (max-width: 560px) {
+  .lista-indicadores,
+  .passos {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-acoes .botao {
+    width: 100%;
+  }
+
+  .hero-visual {
+    min-height: 220px;
+  }
+
+  .sobre-projeto-texto {
+    padding: var(--esp-5);
+  }
+}

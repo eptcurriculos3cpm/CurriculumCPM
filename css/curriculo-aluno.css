@@ -1,0 +1,502 @@
+/* =========================================================================
+   Currículo individual (folha A4) e sua versão de impressão.
+
+   ISOLAMENTO: a folha usa variáveis próprias (--a4-*) declaradas em
+   .pagina-a4, com valores fixos. Elas NÃO mudam com o tema escuro, então
+   a folha continua branca na tela escura (como papel) e o PDF sai sempre
+   igual. Não troque estas cores por variáveis globais do site.
+   Cabeçalho, rodapé e avisos de carregamento/erro seguem css/styles.css.
+   ========================================================================= */
+
+/* Folha A4 na tela ------------------------------------------------------ */
+.pagina-a4 {
+  --a4-azul-escuro: #043175;
+  --a4-azul: #1565c0;
+  --a4-verde: #62a294;          /* linhas e marcadores decorativos */
+  --a4-verde-texto: #3a7a6b;    /* mesmo tom, escurecido para texto (5,03:1 sobre branco) */
+  --a4-rotulo-lateral: #e6eefa; /* rótulos na coluna azul (4,9:1 no ponto mais claro) */
+  --a4-papel: #ffffff;
+  --a4-texto: #243244;
+  --a4-texto-suave: #5d6978;
+  --a4-linha: #d9e2ed;
+  --a4-largura: 210mm;
+
+  width: min(calc(100% - 32px), var(--a4-largura));
+  min-height: 297mm;
+  margin: var(--esp-6) auto;
+  overflow: hidden;
+  color: var(--a4-texto);
+  background: var(--a4-papel);
+  box-shadow: var(--sombra-2);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.5;
+  color-scheme: light;
+}
+
+.pagina-a4 a {
+  color: inherit;
+}
+
+.pagina-a4 img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Foco dentro da folha: branco na coluna azul e azul-escuro na coluna branca. */
+.pagina-a4 :focus-visible {
+  outline: 3px solid var(--a4-azul-escuro);
+  outline-offset: 3px;
+}
+
+.painel-lateral :focus-visible {
+  outline-color: #ffffff;
+}
+
+/* Duas colunas: 34% lateral e 66% conteúdo. */
+.curriculo {
+  display: grid;
+  min-height: 297mm;
+  grid-template-columns: 34% 66%;
+}
+
+/* Coluna lateral: foto, contato e competências. */
+.painel-lateral {
+  min-width: 0;
+  padding: 38px 28px;
+  color: #eef5ff;
+  background: linear-gradient(160deg, var(--a4-azul), var(--a4-azul-escuro) 58%);
+}
+
+.foto-aluno {
+  width: min(100%, 190px);
+  height: auto;
+  aspect-ratio: 1;
+  margin: 0 auto 30px;
+  object-fit: cover;
+  background: var(--a4-azul);
+  border: 7px solid rgba(255, 255, 255, .22);
+  border-radius: 50%;
+}
+
+.secao-lateral + .secao-lateral {
+  margin-top: 32px;
+}
+
+.secao-lateral h2,
+.secao-principal h2 {
+  margin: 0 0 16px;
+  font-family: inherit;
+  font-size: .82rem;
+  line-height: 1.5;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.secao-lateral h2 {
+  padding-bottom: 8px;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, .3);
+}
+
+.lista-contato,
+.lista-competencias,
+.lista-conteudo,
+.lista-atividades,
+.lista-tecnologias {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item-contato {
+  min-width: 0;
+  margin-bottom: 14px;
+  font-size: .84rem;
+}
+
+.rotulo-contato {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--a4-rotulo-lateral);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.item-contato a,
+.item-contato span {
+  overflow-wrap: anywhere;
+  text-decoration: none;
+}
+
+.item-contato a:hover {
+  text-decoration: underline;
+}
+
+.competencia {
+  margin-bottom: 15px;
+}
+
+.competencia-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  gap: 9px;
+  font-size: .82rem;
+}
+
+.nivel {
+  color: var(--a4-rotulo-lateral);
+  font-size: .72rem;
+}
+
+/* Coluna principal: identificação e seções. */
+.painel-principal {
+  min-width: 0;
+  padding: 52px 42px;
+}
+
+.identificacao {
+  margin-bottom: 38px;
+  padding-bottom: 28px;
+  border-bottom: 3px solid var(--a4-verde);
+}
+
+.turma-area {
+  margin: 0 0 10px;
+  color: var(--a4-azul);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.identificacao h1 {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: var(--a4-azul-escuro);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.1rem, 5vw, 3.5rem);
+  font-weight: 500;
+  letter-spacing: -.04em;
+  line-height: 1.02;
+}
+
+.titulo-profissional {
+  margin: 12px 0 0;
+  color: var(--a4-verde-texto);
+  font-size: 1.12rem;
+  font-weight: 700;
+}
+
+.secao-principal + .secao-principal {
+  margin-top: 34px;
+}
+
+.secao-principal h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--a4-azul-escuro);
+}
+
+/* Linha decorativa à direita do título da seção. */
+.secao-principal h2::after {
+  flex: 1;
+  height: 1px;
+  content: "";
+  background: var(--a4-linha);
+}
+
+.secao-principal > p {
+  margin: 0;
+  color: var(--a4-texto-suave);
+}
+
+.item-conteudo {
+  position: relative;
+  padding-left: 20px;
+}
+
+.item-conteudo::before {
+  position: absolute;
+  top: 7px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  content: "";
+  background: var(--a4-verde);
+  border-radius: 50%;
+}
+
+.item-conteudo + .item-conteudo {
+  margin-top: 25px;
+}
+
+.item-conteudo h3 {
+  margin: 0;
+  color: var(--a4-azul-escuro);
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.subtitulo,
+.periodo,
+.descricao {
+  margin: 4px 0 0;
+}
+
+.subtitulo {
+  font-weight: 700;
+}
+
+.periodo {
+  color: var(--a4-verde-texto);
+  font-size: .82rem;
+  font-weight: 700;
+}
+
+.descricao {
+  color: var(--a4-texto-suave);
+  font-size: .91rem;
+}
+
+.lista-atividades {
+  margin-top: 10px;
+  padding-left: 18px;
+  list-style: disc;
+}
+
+.lista-atividades li {
+  margin-top: 5px;
+  color: var(--a4-texto-suave);
+  font-size: .87rem;
+}
+
+.lista-tecnologias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.lista-tecnologias li {
+  padding: 4px 8px;
+  color: var(--a4-azul-escuro);
+  background: #e9f1fb;
+  border-radius: 999px;
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+.link-projeto {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--a4-azul);
+  font-size: .88rem;
+  font-weight: 700;
+}
+
+/* Avisos de carregamento/erro: seguem o tema do site. */
+.mensagem-estado h1 {
+  margin-bottom: var(--esp-3);
+}
+
+.mensagem-estado p {
+  margin: 0 0 var(--esp-4);
+}
+
+.mensagem-estado a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 20px;
+  color: var(--cor-sobre-primaria);
+  background: var(--cor-primaria);
+  border-radius: var(--raio-md);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Contato intermediado e correção de dados (fora da folha; não aparece no PDF).
+   Segue o tema do site, como os avisos de carregamento e erro. */
+.contato-recrutador {
+  width: min(calc(100% - 32px), 210mm);
+  margin: 0 auto var(--esp-6);
+  padding: var(--esp-5);
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-lg);
+}
+
+.contato-recrutador h2 {
+  margin-bottom: var(--esp-3);
+  font-size: 1.25rem;
+}
+
+.contato-recrutador p {
+  max-width: var(--largura-texto);
+}
+
+.form-interesse {
+  display: grid;
+  gap: var(--esp-4);
+  margin-top: var(--esp-5);
+}
+
+.campo-interesse label {
+  display: block;
+  margin-bottom: var(--esp-1);
+  font-weight: 600;
+}
+
+.campo-interesse :where(input, textarea) {
+  min-height: 44px;
+}
+
+.dica-interesse {
+  margin: var(--esp-1) 0 0;
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-pequeno);
+}
+
+.erro-interesse {
+  margin: 0 0 var(--esp-2);
+  color: var(--cor-erro);
+  font-weight: 600;
+}
+
+.campo-interesse [aria-invalid="true"] {
+  border: 2px solid var(--cor-erro);
+}
+
+.form-interesse .botao {
+  justify-self: start;
+}
+
+.estado-interesse:empty {
+  display: none;
+}
+
+.estado-interesse--sucesso,
+.estado-interesse--erro {
+  padding: var(--esp-3) var(--esp-4);
+  border-left: 4px solid currentColor;
+  border-radius: var(--raio-sm);
+  font-weight: 600;
+}
+
+.estado-interesse--sucesso {
+  color: var(--cor-titulo);
+  background: var(--cor-superficie-suave);
+}
+
+.estado-interesse--erro {
+  color: var(--cor-erro);
+  background: var(--cor-erro-fundo);
+}
+
+.correcao-dados {
+  margin: var(--esp-5) 0 0;
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-pequeno);
+}
+
+/* Telas pequenas: a folha vira uma coluna. Não vale para a impressão. */
+@media screen and (max-width: 760px) {
+  .pagina-a4 {
+    width: 100%;
+    min-height: 0;
+    margin: 0;
+    box-shadow: none;
+  }
+
+  .curriculo {
+    min-height: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .painel-lateral,
+  .painel-principal {
+    padding: 34px clamp(22px, 7vw, 44px);
+  }
+
+  .foto-aluno {
+    width: 145px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .painel-lateral,
+  .painel-principal {
+    padding-inline: 20px;
+  }
+}
+
+/* Impressão / Salvar como PDF ------------------------------------------- */
+@page {
+  size: A4;
+  margin: 0;
+}
+
+/* Este bloco é independente do tema e da largura da tela: mesmo com o modo
+   escuro ativo ou com margens no diálogo de impressão, a folha sai clara e
+   em duas colunas. */
+@media print {
+  html,
+  body {
+    display: block;
+    width: 210mm;
+    min-height: 0;
+    margin: 0;
+    color: #243244;
+    background: #ffffff;
+  }
+
+  /* Mostra somente a folha: cabeçalho, rodapé, avisos, tema e chatbot somem. */
+  body > :not(#pagina-curriculo) {
+    display: none !important;
+  }
+
+  #pagina-curriculo {
+    display: block;
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0;
+    overflow: visible;
+    box-shadow: none;
+  }
+
+  .curriculo {
+    min-height: 297mm;
+    grid-template-columns: 34% 66%;
+  }
+
+  .painel-lateral {
+    padding: 38px 28px;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .painel-principal {
+    padding: 52px 42px;
+  }
+
+  .foto-aluno {
+    width: min(100%, 190px);
+  }
+
+  .secao-lateral,
+  .identificacao,
+  .item-conteudo {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .secao-principal h2 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+}

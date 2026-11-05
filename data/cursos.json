@@ -1,0 +1,204 @@
+{
+  "_leia": "Catálogo de cursos da página Cursos (certificados.html). Inclua só cursos conferidos na página oficial. 'certificado': 'gratuito' (curso e certificado gratuitos), 'pago' (curso gratuito, certificado pago), 'condicoes' (condições especiais) ou 'a_confirmar' (curso gratuito; condição do certificado não confirmada). Deixe 'carga_horaria' vazio quando a página oficial não informar. Atualize 'verificado_em' a cada conferência.",
+  "verificado_em": "2026-11-05",
+  "plataformas": [
+    {
+      "id": "fundacao-bradesco",
+      "nome": "Escola Virtual da Fundação Bradesco",
+      "url": "https://www.ev.org.br/cursos",
+      "observacao": "Cursos on-line gratuitos. O certificado é emitido gratuitamente após aprovação na avaliação final."
+    },
+    {
+      "id": "aprenda-mais",
+      "nome": "Aprenda Mais (MEC)",
+      "url": "https://aprendamais.mec.gov.br/",
+      "observacao": "Cursos on-line abertos da Rede Federal (institutos federais), gratuitos, inclusive o certificado, com nota mínima de 60%. As ofertas são organizadas por turmas; o endereço de um curso pode mudar na turma seguinte."
+    },
+    {
+      "id": "escola-virtual-gov",
+      "nome": "Escola Virtual.Gov (Enap)",
+      "url": "https://www.escolavirtual.gov.br/",
+      "observacao": "Cursos gratuitos e abertos a todas as pessoas (alguns têm público-alvo específico). Certificado ao concluir as atividades com a nota mínima."
+    },
+    {
+      "id": "curso-em-video",
+      "nome": "Curso em Vídeo",
+      "url": "https://www.cursoemvideo.com/",
+      "observacao": "Cursos gratuitos em vídeo. A página não informa se o certificado é gratuito: confira antes de se inscrever."
+    }
+  ],
+  "cursos": [
+    {
+      "id": "cev-html-css",
+      "nome": "HTML5 e CSS3 (Módulo 1)",
+      "plataforma": "curso-em-video",
+      "area": "Desenvolvimento web",
+      "modalidade": "On-line, em vídeo, no seu ritmo",
+      "carga_horaria": "40 horas",
+      "certificado": "a_confirmar",
+      "url": "https://www.cursoemvideo.com/curso/html5-css3-modulo1/"
+    },
+    {
+      "id": "fb-site-simples",
+      "nome": "Crie um site simples usando HTML, CSS e JavaScript",
+      "plataforma": "fundacao-bradesco",
+      "area": "Desenvolvimento web",
+      "modalidade": "On-line, no seu ritmo",
+      "carga_horaria": "2 horas",
+      "certificado": "gratuito",
+      "url": "https://www.ev.org.br/cursos/crie-um-site-simples-usando-html-css-e-javascript"
+    },
+    {
+      "id": "am-html5",
+      "nome": "HTML5: Fundamentos para Construção de Páginas Web Modernas",
+      "plataforma": "aprenda-mais",
+      "area": "Desenvolvimento web",
+      "modalidade": "On-line, no seu ritmo (turma 2026B)",
+      "carga_horaria": "",
+      "certificado": "gratuito",
+      "url": "https://aprendamais.mec.gov.br/course/view.php?id=3572"
+    },
+    {
+      "id": "cev-git",
+      "nome": "Git e GitHub",
+      "plataforma": "curso-em-video",
+      "area": "Desenvolvimento web",
+      "modalidade": "On-line, em vídeo, no seu ritmo",
+      "carga_horaria": "20 horas",
+      "certificado": "a_confirmar",
+      "url": "https://www.cursoemvideo.com/curso/curso-de-git-e-github/"
+    },
+    {
+      "id": "cev-algoritmos",
+      "nome": "Algoritmos e Lógica de Programação",
+      "plataforma": "curso-em-video",
+      "area": "Programação",
+      "modalidade": "On-line, em vídeo, no seu ritmo",
+      "carga_horaria": "40 horas",
+      "certificado": "a_confirmar",
+      "url": "https://www.cursoemvideo.com/curso/curso-de-algoritmo/"
+    },
+    {
+      "id": "cev-python",
+      "nome": "Python 3 (Mundo 1)",
+      "plataforma": "curso-em-video",
+      "area": "Programação",
+      "modalidade": "On-line, em vídeo, no seu ritmo",
+      "carga_horaria": "40 horas",
+      "certificado": "a_confirmar",
+      "url": "https://www.cursoemvideo.com/curso/python-3-mundo-1/"
+    },
+    {
+      "id": "fb-python",
+      "nome": "Linguagem de Programação Python - Básico",
+      "plataforma": "fundacao-bradesco",
+      "area": "Programação",
+      "modalidade": "On-line, no seu ritmo",
+      "carga_horaria": "18 horas",
+      "certificado": "gratuito",
+      "url": "https://www.ev.org.br/cursos/linguagem-de-programacao-python-basico"
+    },
+    {
+      "id": "am-banco-dados",
+      "nome": "Banco de Dados 1: fundamentos",
+      "plataforma": "aprenda-mais",
+      "area": "Programação",
+      "modalidade": "On-line, no seu ritmo (turma 2026B)",
+      "carga_horaria": "",
+      "certificado": "gratuito",
+      "url": "https://aprendamais.mec.gov.br/course/view.php?id=3184"
+    },
+    {
+      "id": "fb-cultura-digital",
+      "nome": "Cultura Digital",
+      "plataforma": "fundacao-bradesco",
+      "area": "Informática para o trabalho",
+      "modalidade": "On-line, no seu ritmo",
+      "carga_horaria": "6 horas",
+      "certificado": "gratuito",
+      "url": "https://www.ev.org.br/cursos/cultura-digital"
+    },
+    {
+      "id": "fb-excel",
+      "nome": "Excel na Prática",
+      "plataforma": "fundacao-bradesco",
+      "area": "Informática para o trabalho",
+      "modalidade": "On-line, no seu ritmo",
+      "carga_horaria": "16 horas",
+      "certificado": "gratuito",
+      "url": "https://www.ev.org.br/cursos/excel-na-pratica"
+    },
+    {
+      "id": "am-excel",
+      "nome": "Excel na Prática: aplicação de funções, organização e visualização de dados",
+      "plataforma": "aprenda-mais",
+      "area": "Informática para o trabalho",
+      "modalidade": "On-line, no seu ritmo (turma 2026B)",
+      "carga_horaria": "",
+      "certificado": "gratuito",
+      "url": "https://aprendamais.mec.gov.br/course/view.php?id=3296"
+    },
+    {
+      "id": "am-documentos",
+      "nome": "Criando Trabalhos Acadêmicos com Ferramentas Digitais",
+      "plataforma": "aprenda-mais",
+      "area": "Informática para o trabalho",
+      "modalidade": "On-line, no seu ritmo (turma 2026B)",
+      "carga_horaria": "",
+      "certificado": "gratuito",
+      "url": "https://aprendamais.mec.gov.br/course/view.php?id=3229"
+    },
+    {
+      "id": "am-comunicacao",
+      "nome": "Comunicação Empresarial",
+      "plataforma": "aprenda-mais",
+      "area": "Comunicação e atendimento",
+      "modalidade": "On-line, no seu ritmo (turma 2026B)",
+      "carga_horaria": "",
+      "certificado": "gratuito",
+      "url": "https://aprendamais.mec.gov.br/course/view.php?id=3207"
+    },
+    {
+      "id": "fb-atendimento",
+      "nome": "Atendimento ao Público",
+      "plataforma": "fundacao-bradesco",
+      "area": "Comunicação e atendimento",
+      "modalidade": "On-line, no seu ritmo",
+      "carga_horaria": "10 horas",
+      "certificado": "gratuito",
+      "url": "https://www.ev.org.br/cursos/atendimento-ao-publico"
+    }
+  ],
+  "trilhas": [
+    {
+      "id": "web",
+      "nome": "Desenvolvimento Web",
+      "etapas": [
+        { "titulo": "HTML", "cursos": ["am-html5", "cev-html-css"] },
+        { "titulo": "CSS", "cursos": ["cev-html-css"] },
+        { "titulo": "JavaScript", "cursos": ["fb-site-simples"] },
+        { "titulo": "Git e GitHub", "cursos": ["cev-git"] }
+      ]
+    },
+    {
+      "id": "informatica",
+      "nome": "Informática para o trabalho",
+      "etapas": [
+        { "titulo": "Informática básica", "cursos": ["fb-cultura-digital"] },
+        { "titulo": "Planilhas", "cursos": ["fb-excel", "am-excel"] },
+        { "titulo": "Documentos", "cursos": ["am-documentos"] },
+        { "titulo": "Comunicação digital", "cursos": ["am-comunicacao"] }
+      ]
+    },
+    {
+      "id": "preparacao",
+      "nome": "Preparação profissional",
+      "etapas": [
+        { "titulo": "Currículo", "pagina": { "rotulo": "Criador de currículos", "url": "curriculo.html" } },
+        { "titulo": "Comunicação", "cursos": ["am-comunicacao", "fb-atendimento"] },
+        { "titulo": "Entrevistas", "pagina": { "rotulo": "Guia do Primeiro Emprego", "url": "guia-primeiro-emprego.html#preparacao" } },
+        { "titulo": "Portfólio", "cursos": ["cev-git"] }
+      ]
+    }
+  ]
+}

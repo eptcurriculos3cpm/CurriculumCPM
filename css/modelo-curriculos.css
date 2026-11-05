@@ -1,0 +1,421 @@
+/* Página de modelos: apresentação, busca e lista de cartões com rolagem
+   horizontal. Classes e IDs são usados por js/modelo-curriculos.js. */
+
+.container {
+  width: min(calc(100% - 2 * var(--margem-lateral)), var(--largura-max));
+  margin-inline: auto;
+}
+
+/* As seções usam .container; anulamos o recuo lateral padrão das seções. */
+.hero,
+.students-section {
+  padding-inline: 0;
+}
+
+.hero {
+  padding-block: var(--esp-6) var(--esp-5);
+}
+
+/* Painel de apresentação na faixa institucional, sem efeitos decorativos. */
+.hero-panel {
+  --cor-foco: var(--cpm-dourado);
+  padding: clamp(28px, 6vw, 64px);
+  color: #ffffff;
+  background: var(--cor-faixa);
+  border-radius: var(--raio-lg);
+}
+
+.hero-content {
+  max-width: 760px;
+}
+
+.eyebrow {
+  margin: 0 0 var(--esp-4);
+  color: var(--cor-faixa-texto-suave);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+}
+
+.hero-description {
+  max-width: 640px;
+  margin: var(--esp-4) 0 0;
+  color: var(--cor-faixa-texto-suave);
+  font-size: 1.1rem;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-3);
+  margin-top: var(--esp-6);
+}
+
+/* Botões da apresentação seguem o padrão .botao, adaptados à faixa azul. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-2);
+  min-height: 44px;
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: var(--raio-md);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transicao), color var(--transicao);
+}
+
+.button svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.button-primary {
+  color: var(--cpm-azul-escuro);
+  background: #ffffff;
+}
+
+.button-primary:hover {
+  background: var(--cpm-azul-claro);
+}
+
+.button-secondary {
+  color: #ffffff;
+  border-color: var(--cor-faixa-linha);
+}
+
+.button-secondary:hover {
+  background: var(--cor-faixa-hover);
+}
+
+/* Seções de estudantes e sobre o projeto. */
+.students-section {
+  padding-block: var(--esp-6) var(--esp-7);
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--esp-5);
+  margin-bottom: var(--esp-5);
+}
+
+.section-heading-copy {
+  max-width: 690px;
+}
+
+.section-kicker {
+  margin: 0 0 var(--esp-2);
+  color: var(--cor-destaque);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.section-heading-copy h2 {
+  margin: 0;
+}
+
+.section-description {
+  margin: var(--esp-3) 0 0;
+  color: var(--cor-texto-suave);
+}
+
+.carousel-actions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--esp-2);
+}
+
+.carousel-button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: var(--cor-link);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color var(--transicao), color var(--transicao);
+}
+
+.carousel-button:hover:not(:disabled) {
+  color: var(--cor-sobre-primaria);
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+}
+
+.carousel-button:disabled {
+  cursor: not-allowed;
+  opacity: .4;
+}
+
+.carousel-button svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Barra de busca e contador de resultados. */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--esp-4);
+  margin-bottom: var(--esp-5);
+}
+
+.search-box {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--esp-2);
+  min-width: 0;
+  max-width: 520px;
+  padding: 0 var(--esp-3);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda-campo);
+  border-radius: var(--raio-md);
+}
+
+.search-box:focus-within {
+  outline: 3px solid var(--cor-foco);
+  outline-offset: 2px;
+}
+
+.search-box svg {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  fill: var(--cor-texto-suave);
+}
+
+/* O contorno de foco fica na caixa inteira (acima), não só no campo. */
+.search-box input {
+  min-height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+.results-status {
+  flex: 0 0 auto;
+  margin: 0;
+  color: var(--cor-texto-suave);
+  font-size: .9rem;
+}
+
+/* Lista com rolagem horizontal e encaixe nos cartões. */
+.carousel-track {
+  display: grid;
+  grid-auto-columns: minmax(250px, 31%);
+  grid-auto-flow: column;
+  gap: var(--esp-5);
+  overflow-x: auto;
+  padding: 4px 4px var(--esp-5);
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+}
+
+.student-card {
+  scroll-snap-align: start;
+}
+
+.student-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-1);
+  text-decoration: none;
+  transition: box-shadow var(--transicao), border-color var(--transicao);
+}
+
+.student-link:hover {
+  border-color: var(--cor-borda-campo);
+  box-shadow: var(--sombra-2);
+}
+
+.student-link:hover .student-name {
+  color: var(--cor-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.student-photo-wrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--cor-superficie-suave);
+}
+
+.student-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.student-badge {
+  position: absolute;
+  top: var(--esp-3);
+  left: var(--esp-3);
+  max-width: calc(100% - 24px);
+  padding: 4px 10px;
+  overflow: hidden;
+  color: #ffffff;
+  background: rgba(4, 49, 117, .88);
+  border-radius: var(--raio-pilula);
+  font-size: .75rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.student-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: var(--esp-5);
+}
+
+.student-name {
+  margin: 0;
+  color: var(--cor-titulo);
+  font-size: 1.3rem;
+}
+
+.student-title {
+  margin: var(--esp-2) 0 0;
+  color: var(--cor-texto-suave);
+}
+
+.student-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+  margin-top: var(--esp-4);
+}
+
+.student-meta span {
+  padding: 4px 10px;
+  color: var(--cor-chip-texto);
+  background: var(--cor-chip-fundo);
+  border-radius: var(--raio-pilula);
+  font-size: .78rem;
+  font-weight: 600;
+}
+
+.student-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: var(--esp-5);
+  color: var(--cor-link);
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+.student-cta svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+/* Lista vazia e aviso de dados de demonstração (exibidos pelo JavaScript). */
+.message {
+  display: none;
+  padding: var(--esp-6) var(--esp-5);
+  color: var(--cor-texto-suave);
+  background: var(--cor-superficie);
+  border: 1px dashed var(--cor-borda-campo);
+  border-radius: var(--raio-lg);
+  text-align: center;
+}
+
+.message.is-visible {
+  display: block;
+}
+
+.message strong {
+  display: block;
+  margin-bottom: var(--esp-1);
+  color: var(--cor-texto);
+}
+
+.data-warning {
+  display: none;
+  margin: var(--esp-4) 0 0;
+  padding: var(--esp-3) var(--esp-4);
+  color: var(--cor-aviso-texto);
+  background: var(--cor-aviso-fundo);
+  border-left: 4px solid var(--cor-aviso-borda);
+  border-radius: var(--raio-sm);
+  font-size: .9rem;
+}
+
+.data-warning.is-visible {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .carousel-track {
+    grid-auto-columns: minmax(250px, 46%);
+  }
+}
+
+@media (max-width: 680px) {
+  .section-heading {
+    align-items: start;
+  }
+
+  /* Em telas pequenas a lista é rolada com o dedo; as setas somem. */
+  .carousel-actions {
+    display: none;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-box {
+    max-width: none;
+  }
+
+  .carousel-track {
+    grid-auto-columns: minmax(240px, 86%);
+  }
+}
+
+@media (max-width: 420px) {
+  .button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Nina, assistente virtual do Curriculum CPM. Desenho original do projeto.
+       Fundo transparente: o círculo azul atrás vem do CSS (css/chatbot.css).
+       Cores: azul institucional #043175, verde #62a294 e tons claros. -->
+  <!-- Antena -->
+  <path d="M32 9.5v6" stroke="#dbe7f8" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="32" cy="7.5" r="3.6" fill="#62a294"/>
+  <!-- Laterais (orelhas) -->
+  <rect x="6.5" y="28" width="6" height="13" rx="3" fill="#dbe7f8"/>
+  <rect x="51.5" y="28" width="6" height="13" rx="3" fill="#dbe7f8"/>
+  <!-- Cabeça -->
+  <rect x="11" y="15" width="42" height="38" rx="14" fill="#ffffff"/>
+  <path d="M11 41h42v-2H11z" fill="#eef3fb"/>
+  <!-- Visor -->
+  <rect x="16.5" y="21.5" width="31" height="21.5" rx="10.75" fill="#043175"/>
+  <!-- Olhos com brilho -->
+  <ellipse cx="25.5" cy="30.8" rx="3.3" ry="3.9" fill="#8fe3d1"/>
+  <ellipse cx="38.5" cy="30.8" rx="3.3" ry="3.9" fill="#8fe3d1"/>
+  <circle cx="26.6" cy="29.4" r="1.1" fill="#ffffff"/>
+  <circle cx="39.6" cy="29.4" r="1.1" fill="#ffffff"/>
+  <!-- Sorriso -->
+  <path d="M27 37c2.9 2.5 7.1 2.5 10 0" stroke="#8fe3d1" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+  <!-- Microfone de headset (assistente) -->
+  <path d="M54.5 40.5c0 6.5-4.4 10.4-10.6 10.9" stroke="#62a294" stroke-width="2.6" stroke-linecap="round" fill="none"/>
+  <circle cx="42.2" cy="51.4" r="2.7" fill="#62a294"/>
+</svg>

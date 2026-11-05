@@ -1,0 +1,7 @@
+/* Página auxiliar sobre os temas. Usa a base de css/styles.css;
+   aqui fica apenas o que é próprio desta página. */
+
+.explicacao-tema p {
+  max-width: var(--largura-texto);
+  color: var(--cor-texto-suave);
+}

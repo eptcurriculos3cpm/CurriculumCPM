@@ -1,0 +1,572 @@
+/* =========================================================================
+   Nina: botão flutuante (#cb-toggle) e janela (#cb-panel) criados por
+   js/chatbot.js. Usa as variáveis de css/styles.css (temas claro e escuro).
+   Avatar: img/nina-avatar.svg (fundo transparente) sobre um círculo azul.
+   ========================================================================= */
+
+/* Avatar da Nina: círculo azul com o robô. Tamanhos definidos em cada lugar. */
+.cb-avatar {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  overflow: hidden;
+  color: #ffffff;
+  background: var(--cor-primaria);
+  border-radius: 50%;
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+}
+
+.cb-avatar img {
+  display: block;
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+}
+
+/* Botão flutuante que abre e fecha a janela. Fechado, mostra o avatar. */
+#cb-toggle {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  color: #ffffff;
+  background: var(--cor-primaria);
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: var(--sombra-2);
+  cursor: pointer;
+  transition: background-color var(--transicao), transform 180ms ease, box-shadow 180ms ease;
+}
+
+#cb-toggle .cb-avatar {
+  width: 52px;
+  height: 52px;
+  background: transparent;
+}
+
+/* Leve movimento ao passar o mouse (desligado com movimento reduzido). */
+#cb-toggle:hover {
+  background: var(--cor-primaria-hover);
+  box-shadow: var(--sombra-3);
+  transform: translateY(-2px);
+}
+
+#cb-toggle svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+#cb-toggle .cb-ic-fechar,
+#cb-toggle.is-open .cb-ic-abrir {
+  display: none;
+}
+
+#cb-toggle.is-open .cb-ic-fechar {
+  display: block;
+}
+
+/* Com o painel aberto, o botão flutuante sai de cena: o painel tem o próprio "Fechar"
+   e o botão voltaria a cobrir o campo de digitação. Ao fechar, ele volta e recebe o foco. */
+#cb-toggle.is-open {
+  display: none;
+}
+
+/* Painel da Nina: faixa fixa no lado direito da tela, com toda a altura.
+   Não é uma janela por cima do conteúdo: em telas largas, a página ganha um
+   recuo à direita (html.cb-aberto) e se ajusta ao espaço que sobra.
+   Fechado, usa o atributo hidden (fora do Tab e da tela). */
+:root {
+  --cb-largura: clamp(320px, 26vw, 380px);
+}
+
+.cb-painel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  width: var(--cb-largura);
+  overflow: hidden;
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border-left: 1px solid var(--cor-borda);
+  box-shadow: -6px 0 18px rgba(16, 24, 40, .08);
+  font-family: var(--fonte-texto);
+  animation: cb-surgir 200ms ease-out;
+}
+
+@keyframes cb-surgir {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+}
+
+/* Espaço reservado para o painel: o conteúdo da página não fica escondido atrás dele. */
+@media (min-width: 761px) {
+  html.cb-aberto body {
+    padding-right: var(--cb-largura);
+  }
+}
+
+/* Cabeçalho: quem responde, recomeçar e fechar. */
+.cb-cabecalho {
+  --cor-foco: var(--cpm-dourado);
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--esp-3);
+  padding: var(--esp-3) var(--esp-2) var(--esp-3) var(--esp-4);
+  color: #ffffff;
+  background: var(--cor-faixa);
+  border-bottom: 3px solid var(--azul-destaque);
+}
+
+/* No cabeçalho (faixa azul), o avatar ganha um contorno claro para se destacar. */
+.cb-avatar--cabecalho {
+  width: 40px;
+  height: 40px;
+  background: var(--cpm-azul);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, .55);
+}
+
+.cb-identidade {
+  flex: 1;
+  min-width: 0;
+}
+
+.cb-titulo {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.cb-subtitulo {
+  margin: 0;
+  color: var(--cor-faixa-texto-suave);
+  font-size: .78rem;
+  line-height: 1.3;
+}
+
+.cb-icone {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  color: #ffffff;
+  background: transparent;
+  border: 0;
+  border-radius: var(--raio-sm);
+  cursor: pointer;
+}
+
+.cb-icone:hover {
+  background: var(--cor-faixa-hover);
+}
+
+.cb-icone svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Progresso da simulação de entrevista ("Pergunta 2 de 5"), abaixo do cabeçalho. */
+.cb-progresso {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--esp-3);
+  padding: var(--esp-2) var(--esp-4);
+  background: var(--cor-superficie-suave);
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.cb-progresso-texto {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  color: var(--cor-texto);
+  font-size: .8rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.cb-progresso-barra {
+  flex: 0 0 72px;
+  height: 8px;
+  overflow: hidden;
+  color: var(--cor-destaque);
+  background: var(--cor-borda-campo);
+  border: 0;
+  border-radius: var(--raio-pilula);
+  appearance: none;
+}
+
+.cb-progresso-barra::-webkit-progress-bar {
+  background: var(--cor-borda-campo);
+}
+
+.cb-progresso-barra::-webkit-progress-value {
+  background: var(--cor-destaque);
+  border-radius: var(--raio-pilula);
+}
+
+.cb-progresso-barra::-moz-progress-bar {
+  background: var(--cor-destaque);
+  border-radius: var(--raio-pilula);
+}
+
+/* Área rolável com mensagens, indicador de digitação e opções. */
+.cb-conversa {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--esp-3);
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--esp-4);
+  background: var(--cor-fundo);
+}
+
+.cb-conversa:focus-visible {
+  outline-offset: -3px;
+}
+
+.cb-mensagens {
+  display: flex;
+  flex-direction: column;
+  gap: var(--esp-3);
+}
+
+/* Entrada suave de cada mensagem (desligada com movimento reduzido). */
+.cb-msg {
+  max-width: 88%;
+  font-size: .92rem;
+  line-height: 1.5;
+  animation: cb-entrar 180ms ease-out;
+}
+
+@keyframes cb-entrar {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+.cb-texto {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--raio-md);
+  white-space: pre-line;
+}
+
+/* Mensagens da Nina: avatar pequeno à esquerda do balão. As da pessoa ficam à direita, em azul. */
+.cb-msg--bot {
+  display: flex;
+  align-self: flex-start;
+  align-items: flex-end;
+  gap: var(--esp-2);
+  max-width: 94%;
+}
+
+.cb-avatar--mensagem {
+  width: 28px;
+  height: 28px;
+}
+
+.cb-msg--bot .cb-texto {
+  min-width: 0;
+}
+
+.cb-msg--bot .cb-texto {
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-top-left-radius: 2px;
+}
+
+.cb-msg--user {
+  align-self: flex-end;
+}
+
+.cb-msg--user .cb-texto {
+  color: #ffffff;
+  background: var(--cor-primaria);
+  border-top-right-radius: 2px;
+}
+
+/* Indicador "digitando" (decorativo). */
+.cb-digitando {
+  display: flex;
+  align-self: flex-start;
+  gap: 4px;
+  padding: 12px 14px;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-md);
+}
+
+.cb-digitando[hidden] {
+  display: none;
+}
+
+.cb-digitando span {
+  width: 6px;
+  height: 6px;
+  background: var(--cor-texto-suave);
+  border-radius: 50%;
+  animation: cb-piscar 1.2s infinite ease-in-out;
+}
+
+.cb-digitando span:nth-child(2) {
+  animation-delay: .2s;
+}
+
+.cb-digitando span:nth-child(3) {
+  animation-delay: .4s;
+}
+
+@keyframes cb-piscar {
+  0%, 80%, 100% {
+    opacity: .3;
+  }
+
+  40% {
+    opacity: 1;
+  }
+}
+
+/* Opções de resposta rápida: alvos de pelo menos 40 px de altura. */
+.cb-opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--esp-2);
+}
+
+.cb-opcoes:empty {
+  display: none;
+}
+
+.cb-opcao {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--esp-1);
+  min-height: 40px;
+  padding: 8px 14px;
+  color: var(--cor-link);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda-campo);
+  border-radius: var(--raio-pilula);
+  font-size: .88rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transicao), color var(--transicao), border-color var(--transicao);
+}
+
+.cb-opcao:hover {
+  color: #ffffff;
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+}
+
+.cb-opcao svg {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* Links para páginas e a ação de imprimir ganham destaque de botão principal. */
+.cb-opcao--link,
+.cb-opcao--destaque {
+  color: #ffffff;
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+}
+
+.cb-opcao--link:hover,
+.cb-opcao--destaque:hover {
+  background: var(--cor-primaria-hover);
+  border-color: var(--cor-primaria-hover);
+}
+
+.cb-opcao--secundaria {
+  color: var(--cor-texto-suave);
+  border-style: dashed;
+}
+
+/* "Simular entrevista de emprego" no menu inicial: linha inteira, com ícone. */
+.cb-opcao--entrevista {
+  flex: 1 1 100%;
+  justify-content: center;
+  min-height: 44px;
+  color: #ffffff;
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+  font-size: .95rem;
+}
+
+.cb-opcao--entrevista:hover {
+  background: var(--cor-primaria-hover);
+  border-color: var(--cor-primaria-hover);
+}
+
+.cb-opcao--entrevista svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Campo de pergunta e botão de enviar. */
+.cb-formulario {
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--esp-2);
+  padding: var(--esp-3);
+  background: var(--cor-superficie);
+  border-top: 1px solid var(--cor-borda);
+}
+
+.cb-formulario input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: var(--raio-pilula);
+  /* 16 px evita o zoom automático do iPhone ao focar o campo. */
+  font-size: 1rem;
+}
+
+.cb-enviar {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: #ffffff;
+  background: var(--cor-primaria);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.cb-enviar:hover {
+  background: var(--cor-primaria-hover);
+}
+
+.cb-enviar svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.cb-nota {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0 var(--esp-3) var(--esp-3);
+  color: var(--cor-texto-suave);
+  background: var(--cor-superficie);
+  font-size: .75rem;
+  text-align: center;
+}
+
+/* Celulares: a janela ocupa a largura útil, acima do botão, sem sair da tela. */
+@media (max-width: 600px) {
+  #cb-toggle {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+/* Celulares e telas estreitas: não há espaço ao lado, então o painel ocupa a parte
+   de baixo da tela (cerca de 3/4 da altura), com a página visível acima dele. */
+@media (max-width: 760px) {
+  .cb-painel {
+    top: auto;
+    left: 0;
+    width: auto;
+    height: min(75vh, 600px);
+    height: min(75dvh, 600px);
+    border-top: 1px solid var(--cor-borda);
+    border-left: 0;
+    border-radius: var(--raio-lg) var(--raio-lg) 0 0;
+    box-shadow: 0 -8px 24px rgba(16, 24, 40, .18);
+    animation-name: cb-subir;
+  }
+
+  @keyframes cb-subir {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+  }
+}
+
+/* Celular deitado ou zoom alto: o painel usa toda a altura disponível. */
+@media (max-width: 760px) and (max-height: 520px) {
+  .cb-painel {
+    height: 100vh;
+    height: 100dvh;
+    border-radius: 0;
+  }
+}
+
+/* Na impressão, a Nina e o recuo reservado para ela desaparecem. */
+@media print {
+  #cb-toggle,
+  .cb-painel {
+    display: none !important;
+  }
+
+  html.cb-aberto body {
+    padding-right: 0 !important;
+  }
+}
+
+/* Telas baixas (celular deitado, zoom alto): mais espaço para a conversa. */
+@media (max-height: 520px) {
+  .cb-nota,
+  .cb-subtitulo {
+    display: none;
+  }
+
+  .cb-cabecalho {
+    padding-block: var(--esp-1);
+  }
+
+  .cb-conversa {
+    padding: var(--esp-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cb-painel,
+  .cb-msg {
+    animation: none;
+  }
+
+  #cb-toggle:hover {
+    transform: none;
+  }
+
+  .cb-digitando span {
+    animation: none;
+    opacity: .6;
+  }
+}

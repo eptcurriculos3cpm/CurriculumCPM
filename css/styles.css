@@ -1,0 +1,445 @@
+/* =========================================================================
+   Base compartilhada por todas as páginas do Curriculum CPM.
+   Ordem: 1) variáveis (tokens)  2) tema escuro  3) elementos base
+          4) componentes reutilizáveis  5) preferências do sistema.
+   Estilos de uma única página ficam no CSS dessa página.
+   A folha A4 do currículo (css/curriculo-aluno.css) usa cores próprias e
+   não depende do tema, para que a impressão nunca seja afetada.
+   ========================================================================= */
+
+/* 1. Variáveis do sistema visual ---------------------------------------- */
+/* Modelo 2 — Institucional e Elegante: predominância de branco e azul,
+   títulos em Georgia, textos em Inter/Arial, cantos levemente arredondados
+   e sombras muito suaves. As folhas A4 (curriculo-aluno.css e
+   curriculo-documento.css) têm cores próprias e não usam estes tokens. */
+:root {
+  /* Paleta do Modelo 2 (nomes da especificação). */
+  --azul-principal: #043175;
+  --azul-profundo: #09234b;
+  --azul-destaque: #3875c5;    /* 4,65:1 sobre branco: texto só sobre fundo branco */
+  /* Fundo "amarelo antigo" (creme), para o site não ficar totalmente branco.
+     Cartões, cabeçalho e campos continuam brancos (--cor-superficie). */
+  --fundo: #faf4e3;
+  --fundo-secundario: #f2e8cf;
+  --texto: #202b3d;
+  --texto-secundario: #556173; /* 5,4:1 sobre o creme; 4,9:1 sobre o creme secundário */
+
+  /* Nomes antigos mantidos (usados em vários arquivos), agora ligados à nova paleta. */
+  --cpm-azul-escuro: var(--azul-principal);
+  --cpm-azul: var(--azul-destaque);
+  --cpm-azul-claro: #e9f0fa;
+  --cpm-verde: #62a294;        /* cor do 3º CPM, mantida só no avatar e nas folhas A4 */
+  --cpm-verde-texto: #2f6f61;
+  --cpm-dourado: #f0b44d;      /* foco sobre fundos azul-escuros (contraste) */
+
+  /* Cores do tema claro (os nomes descrevem a função, não a cor). */
+  --cor-fundo: var(--fundo);
+  --cor-fundo-secundario: var(--fundo-secundario);
+  --cor-superficie: #ffffff;
+  --cor-superficie-suave: #eef3fa;
+  --cor-texto: var(--texto);
+  --cor-texto-suave: var(--texto-secundario);
+  --cor-titulo: var(--azul-principal);
+  --cor-link: var(--azul-principal);
+  --cor-destaque: #2c5f9e;      /* azul de destaque escurecido: 5,6:1 sobre o creme */
+  --cor-borda: #e4dcc6;
+  --cor-borda-campo: #7b8798;  /* 3,6:1 sobre branco (bordas de campos) */
+  --cor-placeholder: #667085;
+  --cor-chip-fundo: var(--cpm-azul-claro);
+  --cor-chip-texto: var(--azul-principal);
+
+  /* Botões e estados de interação. */
+  --cor-primaria: var(--azul-principal);
+  --cor-primaria-hover: var(--azul-destaque);
+  --cor-sobre-primaria: #ffffff;
+  --cor-foco: var(--azul-destaque);
+  --cor-hover-suave: rgba(56, 117, 197, .08);
+
+  /* Faixas institucionais escuras (rodapé e cabeçalho da Nina). */
+  --cor-faixa: var(--azul-profundo);
+  --cor-faixa-texto: #ffffff;
+  --cor-faixa-texto-suave: #c9d6ea;
+  --cor-faixa-hover: rgba(255, 255, 255, .12);
+  --cor-faixa-linha: rgba(255, 255, 255, .18);
+
+  /* Avisos. */
+  --cor-aviso-fundo: #fff6e0;
+  --cor-aviso-texto: #6b4a0c;
+  --cor-aviso-borda: #b7791f;
+
+  /* Erros de formulário (texto 6,6:1 sobre branco; 6,3:1 sobre o fundo de erro). */
+  --cor-erro: #b42318;
+  --cor-erro-fundo: #fef3f2;
+
+  /* Tipografia: Georgia nos títulos; Inter (se instalada) ou Arial no restante.
+     Nenhuma fonte é baixada da internet. */
+  --fonte-titulo: Georgia, "Times New Roman", serif;
+  --fonte-texto: Inter, Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --texto-base: 1rem;
+  --texto-pequeno: .875rem;
+  --altura-linha: 1.6;
+
+  /* Espaçamentos (escala de 4 px). */
+  --esp-1: 4px;
+  --esp-2: 8px;
+  --esp-3: 12px;
+  --esp-4: 16px;
+  --esp-5: 24px;
+  --esp-6: 32px;
+  --esp-7: 48px;
+  --esp-8: 64px;
+
+  /* Raios de borda: cantos levemente arredondados. */
+  --raio-sm: 6px;
+  --raio-md: 8px;
+  --raio-lg: 12px;
+  --raio-pilula: 999px;
+
+  /* Sombras muito suaves. */
+  --sombra-1: 0 1px 2px rgba(15, 23, 42, .04), 0 1px 3px rgba(15, 23, 42, .06);
+  --sombra-2: 0 6px 20px rgba(15, 23, 42, .07);
+  --sombra-3: 0 14px 36px rgba(15, 23, 42, .12);
+
+  /* Larguras e transições. */
+  --largura-max: 1160px;
+  --largura-texto: 72ch;
+  --margem-lateral: 20px;
+  --transicao: 150ms ease;
+}
+
+/* 2. Tema escuro: main.js aplica a classe dark-mode no <body>. ---------- */
+body.dark-mode {
+  --cor-fundo: #0d1626;
+  --cor-fundo-secundario: #111c30;
+  --cor-superficie: #16233a;
+  --cor-superficie-suave: #1d2d4a;
+  --cor-texto: #e6ebf2;
+  --cor-texto-suave: #aeb9c9;
+  --cor-titulo: #d3e2fa;
+  --cor-link: #9cc0f5;
+  --cor-destaque: #8db4ee;
+  --cor-borda: #2a3a55;
+  --cor-borda-campo: #6b7c96;
+  --cor-placeholder: #98a4b6;
+  --cor-chip-fundo: #1d2d4a;
+  --cor-chip-texto: #d3e2fa;
+
+  --cor-primaria: var(--azul-destaque);
+  --cor-primaria-hover: #2c62aa;
+  --cor-foco: #9cc0f5;
+  --cor-hover-suave: rgba(255, 255, 255, .06);
+
+  --cor-faixa: #071a38;
+
+  --cor-aviso-fundo: #3a2e14;
+  --cor-aviso-texto: #f3d9a4;
+
+  --cor-erro: #fda29b;
+  --cor-erro-fundo: #3a1f1f;
+
+  --sombra-1: 0 1px 2px rgba(0, 0, 0, .4);
+  --sombra-2: 0 6px 20px rgba(0, 0, 0, .35);
+  --sombra-3: 0 14px 36px rgba(0, 0, 0, .5);
+
+  color-scheme: dark;
+}
+
+/* Texto ampliado (botão "A+", js/acessibilidade.js): só na tela. A impressão e o
+   PDF mantêm o tamanho original; o zoom do navegador continua funcionando junto. */
+@media screen {
+  html.texto-ampliado {
+    font-size: 118.75%;
+  }
+}
+
+/* 3. Elementos base ------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Ao rolar até um elemento (Tab ou âncora), deixa espaço para que ele não
+   fique escondido sob os botões fixos de tema e chatbot (WCAG 2.4.11). */
+html {
+  scroll-padding-bottom: 100px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+  font-family: var(--fonte-texto);
+  font-size: var(--texto-base);
+  line-height: var(--altura-linha);
+  /* Palavras muito longas (e-mails, URLs) quebram em vez de alargar a página. */
+  overflow-wrap: break-word;
+}
+
+/* Empurra o rodapé para o fim da tela em páginas com pouco conteúdo. */
+body > main {
+  flex: 1 0 auto;
+}
+
+:where(h1, h2, h3) {
+  margin: 0 0 var(--esp-4);
+  color: var(--cor-titulo);
+  font-family: var(--fonte-titulo);
+  line-height: 1.2;
+}
+
+:where(h1) {
+  font-size: clamp(1.9rem, 4vw, 2.5rem);
+}
+
+:where(h2) {
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+}
+
+:where(h3) {
+  font-size: 1.15rem;
+}
+
+:where(a) {
+  color: var(--cor-link);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+:where(button, input, textarea, select) {
+  font: inherit;
+}
+
+/* Campos de formulário: usam :where para que componentes possam ajustar. */
+:where(input:not([type="hidden"]), textarea, select) {
+  width: 100%;
+  padding: 10px 12px;
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda-campo);
+  border-radius: var(--raio-sm);
+  transition: border-color var(--transicao), box-shadow var(--transicao);
+}
+
+:where(input, textarea)::placeholder {
+  color: var(--cor-placeholder);
+  opacity: 1;
+}
+
+/* Foco visível e com contraste em qualquer fundo. */
+:focus-visible {
+  outline: 3px solid var(--cor-foco);
+  outline-offset: 2px;
+}
+
+/* Garante que o atributo hidden sempre oculte o elemento. */
+[hidden] {
+  display: none !important;
+}
+
+/* Texto disponível para leitores de tela, mas invisível na tela. */
+.visualmente-oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Link "Pular para o conteúdo": primeiro item do Tab, aparece ao receber foco. */
+.pular-conteudo {
+  position: absolute;
+  top: var(--esp-2);
+  left: var(--esp-2);
+  z-index: 10000;
+  padding: var(--esp-3) var(--esp-4);
+  color: #ffffff;
+  background: var(--cpm-azul-escuro);
+  border-radius: var(--raio-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.pular-conteudo:focus {
+  outline: 3px solid var(--cpm-dourado);
+  outline-offset: 2px;
+  transform: none;
+}
+
+/* Seções de conteúdo: largura máxima com fundo de ponta a ponta.
+   :where mantém especificidade zero para o CSS da página poder substituir. */
+:where(main > section) {
+  padding-block: var(--esp-7);
+  padding-inline: max(var(--margem-lateral), calc((100% - var(--largura-max)) / 2));
+}
+
+/* 4. Componentes reutilizáveis ------------------------------------------ */
+
+/* Cabeçalho de página: rótulo opcional, título e descrição. */
+.cabecalho-pagina {
+  padding-bottom: 0;
+}
+
+.cabecalho-pagina > span {
+  display: block;
+  margin-bottom: var(--esp-2);
+  color: var(--cor-destaque);
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.cabecalho-pagina h1 {
+  margin-bottom: var(--esp-3);
+}
+
+.cabecalho-pagina p {
+  max-width: var(--largura-texto);
+  margin: 0;
+  color: var(--cor-texto-suave);
+  font-size: 1.05rem;
+}
+
+/* Indicação visual de campo obrigatório (o atributo required informa os leitores de tela). */
+.obrigatorio {
+  color: var(--cor-erro);
+  font-weight: 700;
+}
+
+/* Texto de ajuda abaixo de um campo, ligado por aria-describedby. */
+.dica-campo {
+  margin: calc(-1 * var(--esp-4)) 0 var(--esp-5);
+  color: var(--cor-texto-suave);
+  font-size: var(--texto-pequeno);
+}
+
+/* Texto longo (ex.: Quem Somos Nós): linhas com largura confortável de leitura. */
+.texto-corrido p {
+  max-width: var(--largura-texto);
+  margin: 0 0 var(--esp-4);
+}
+
+/* Botão principal. .botao-criar-curriculo é o nome já usado no HTML. */
+.botao,
+.botao-criar-curriculo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--esp-2);
+  min-height: 44px;
+  padding: 10px 20px;
+  color: var(--cor-sobre-primaria);
+  background: var(--cor-primaria);
+  border: 1px solid var(--cor-primaria);
+  border-radius: var(--raio-md);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--transicao), border-color var(--transicao), color var(--transicao);
+}
+
+.botao:hover,
+.botao-criar-curriculo:hover {
+  background: var(--cor-primaria-hover);
+  border-color: var(--cor-primaria-hover);
+}
+
+/* Variante com contorno, para ações secundárias. */
+.botao-secundario {
+  color: var(--cor-link);
+  background: transparent;
+  border-color: currentColor;
+}
+
+.botao-secundario:hover {
+  color: var(--cor-sobre-primaria);
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+}
+
+/* Cartão: superfície com borda fina e sombra leve. */
+.card {
+  padding: var(--esp-5);
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-lg);
+  box-shadow: var(--sombra-1);
+}
+
+.card :where(h2, h3) {
+  margin-bottom: var(--esp-2);
+  font-size: 1.2rem;
+}
+
+.card p {
+  margin: 0 0 var(--esp-2);
+  color: var(--cor-texto-suave);
+}
+
+/* Grade responsiva de cartões. */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: var(--esp-5);
+}
+
+/* Etiqueta pequena (competências, áreas, turmas). */
+.chip {
+  display: inline-block;
+  padding: 4px 10px;
+  color: var(--cor-chip-texto);
+  background: var(--cor-chip-fundo);
+  border-radius: var(--raio-pilula);
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+/* Caixa de aviso/estado (carregando, erro, lista vazia). */
+.estado,
+.mensagem-estado {
+  width: min(700px, calc(100% - 2 * var(--margem-lateral)));
+  margin: var(--esp-6) auto;
+  padding: var(--esp-7) var(--esp-5);
+  color: var(--cor-texto-suave);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-lg);
+  text-align: center;
+}
+
+/* 5. Preferências do sistema -------------------------------------------- */
+@media (max-width: 600px) {
+  :root {
+    --margem-lateral: 16px;
+  }
+
+  :where(main > section) {
+    padding-block: var(--esp-6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

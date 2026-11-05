@@ -1,0 +1,850 @@
+/* Roboto servida pelo próprio site (fonts/roboto; licença em fonts/roboto/LICENCA.txt).
+   Fonte variável: um único arquivo cobre os pesos 400 (texto) e 700 (títulos). */
+@font-face {
+  font-family: "Roboto CPM";
+  src: url("../fonts/roboto/roboto-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* =========================================================================
+   Folha do currículo gerado no Criador (curriculo.html): prévia e impressão.
+   Carregado SOMENTE por curriculo.html. Classes próprias (cv-*), separadas da
+   folha de curriculo-aluno.html (css/curriculo-aluno.css), que não é afetada.
+
+   Mesmo visual da folha do currículo individual: coluna azul com foto, contato
+   e habilidades; coluna branca com nome e seções. Cores fixas (--cv-*), que
+   não mudam com o tema escuro: a folha é sempre "papel" e o PDF sai igual.
+
+   Sem altura fixa e sem overflow escondido: um currículo longo continua nas
+   páginas seguintes, com quebras entre os itens.
+   ========================================================================= */
+
+.cv-folha {
+  --cv-azul-escuro: #043175;
+  --cv-azul: #1565c0;
+  --cv-verde: #62a294;        /* linhas e marcadores */
+  --cv-verde-texto: #3a7a6b;  /* verde para texto (5,03:1 sobre branco) */
+  --cv-rotulo-lateral: #e6eefa;
+  --cv-papel: #ffffff;
+  --cv-texto: #243244;
+  --cv-texto-suave: #5d6978;
+  --cv-linha: #d9e2ed;
+  --cv-pendente: #6b7686;
+
+  /* Personalização ("Personalize seu currículo"): js/curriculo-documento.js troca
+     só estas variáveis, com valores de uma lista fixa (cores com contraste AA). */
+  --curriculo-cor-destaque: #163d73;
+  --curriculo-cor-texto: #1f2937;
+  --curriculo-cor-secundaria: color-mix(in srgb, var(--curriculo-cor-destaque) 30%, #ffffff);
+  --curriculo-fonte: Georgia, "Times New Roman", serif;
+
+  width: 100%;
+  max-width: 210mm;
+  margin: 0 auto;
+  color: var(--cv-texto);
+  background: var(--cv-papel);
+  font-family: var(--curriculo-fonte);
+  font-size: 15px;
+  line-height: 1.5;
+  color-scheme: light;
+  overflow-wrap: break-word;
+}
+
+/* Modelo Moderno: duas colunas. Altura mínima de uma página (sem limite máximo):
+   a folha cresce com o conteúdo. */
+.cv-moderno {
+  display: grid;
+  grid-template-columns: 34% 66%;
+  min-height: 282mm;
+}
+
+.cv-folha :is(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  color: inherit;
+  font-family: inherit;
+  line-height: 1.3;
+}
+
+.cv-folha a {
+  color: inherit;
+}
+
+.cv-folha :focus-visible {
+  outline: 3px solid var(--cv-azul-escuro);
+  outline-offset: 3px;
+}
+
+/* Posição das colunas: no HTML a principal vem antes (ordem de leitura);
+   na tela e no papel, a lateral azul fica à esquerda. */
+.cv-lateral {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.cv-principal {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+/* Coluna lateral ---------------------------------------------------------- */
+.cv-lateral {
+  min-width: 0;
+  padding: 36px 26px;
+  color: #eef5ff;
+  /* Cor escolhida, escurecendo para baixo (texto branco com contraste AA nas seis cores). */
+  background: linear-gradient(160deg, var(--curriculo-cor-destaque) 35%, color-mix(in srgb, var(--curriculo-cor-destaque) 70%, #000000));
+}
+
+.cv-lateral :focus-visible {
+  outline-color: #ffffff;
+}
+
+.cv-foto {
+  display: block;
+  width: min(100%, 170px);
+  height: auto;
+  aspect-ratio: 1;
+  margin: 0 auto 28px;
+  object-fit: cover;
+  background: var(--curriculo-cor-destaque);
+  border: 6px solid rgba(255, 255, 255, .22);
+  border-radius: 50%;
+}
+
+.cv-secao-lateral + .cv-secao-lateral {
+  margin-top: 30px;
+}
+
+.cv-secao-lateral > :first-child,
+.cv-secao > :first-child {
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.cv-secao-lateral > :first-child {
+  padding-bottom: 8px;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, .3);
+}
+
+.cv-lista,
+.cv-lista-conteudo {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv-contato {
+  margin-bottom: 12px;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.cv-rotulo {
+  display: block;
+  margin-bottom: 1px;
+  color: var(--cv-rotulo-lateral);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.cv-lateral a {
+  text-decoration: none;
+}
+
+.cv-competencia {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.cv-competencia-nome {
+  min-width: 0;
+}
+
+.cv-nivel {
+  flex: none;
+  color: var(--cv-rotulo-lateral);
+  font-size: 11px;
+}
+
+/* Coluna principal -------------------------------------------------------- */
+.cv-principal {
+  min-width: 0;
+  padding: 48px 40px;
+}
+
+.cv-identificacao {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 3px solid var(--cv-verde);
+}
+
+.cv-busca {
+  margin: 0 0 8px;
+  color: var(--curriculo-cor-destaque);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.cv-folha .cv-nome {
+  color: var(--curriculo-cor-destaque);
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: -.03em;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.cv-folha .cv-pendente {
+  color: var(--cv-pendente);
+  font-style: italic;
+}
+
+.cv-area {
+  margin: 10px 0 0;
+  color: var(--cv-verde-texto);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.cv-secao + .cv-secao {
+  margin-top: 28px;
+}
+
+.cv-secao > :first-child {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--curriculo-cor-destaque);
+}
+
+/* Linha decorativa à direita do título da seção. */
+.cv-secao > :first-child::after {
+  flex: 1;
+  height: 1px;
+  content: "";
+  background: var(--cv-linha);
+}
+
+.cv-texto {
+  margin: 0;
+  color: var(--cv-texto-suave);
+  white-space: pre-line;
+}
+
+.cv-item {
+  position: relative;
+  padding-left: 20px;
+}
+
+.cv-item::before {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  content: "";
+  background: var(--cv-verde);
+  border-radius: 50%;
+}
+
+.cv-item + .cv-item {
+  margin-top: 20px;
+}
+
+.cv-item > :first-child {
+  color: var(--curriculo-cor-destaque);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.cv-subtitulo,
+.cv-periodo,
+.cv-descricao,
+.cv-link {
+  margin: 3px 0 0;
+}
+
+.cv-subtitulo {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cv-periodo {
+  color: var(--cv-verde-texto);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+.cv-descricao {
+  color: var(--cv-texto-suave);
+  font-size: 14px;
+  white-space: pre-line;
+}
+
+.cv-link {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.cv-link a {
+  color: var(--curriculo-cor-destaque);
+}
+
+.cv-extra {
+  margin: 3px 0 0;
+  color: var(--cv-texto-suave);
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* Modelo Clássico (ATS) --------------------------------------------------- */
+/* Uma coluna, fundo branco, texto escuro, fonte simples, títulos convencionais,
+   sem foto, ícones nem colunas. Nada em cabeçalhos ou rodapés de página. */
+.cv-classico {
+  --cv-texto: #1f2937;
+  --cv-texto-suave: #1f2937;
+  --cv-escuro: #111827;
+  padding: 44px 52px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+
+.cv-classico .cv-identificacao {
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px solid var(--cv-escuro);
+}
+
+.cv-folha.cv-classico .cv-nome {
+  color: var(--cv-escuro);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
+}
+
+.cv-contatos {
+  margin: 6px 0 0;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.cv-classico a {
+  color: var(--cv-escuro);
+}
+
+.cv-classico .cv-secao + .cv-secao {
+  margin-top: 16px;
+}
+
+.cv-classico .cv-secao > :first-child {
+  display: block;
+  margin: 0 0 8px;
+  padding-bottom: 3px;
+  color: var(--cv-escuro);
+  border-bottom: 1px solid #9ca3af;
+  font-size: 13.5px;
+  letter-spacing: .06em;
+}
+
+.cv-classico .cv-secao > :first-child::after {
+  display: none;
+}
+
+.cv-classico .cv-texto + .cv-texto {
+  margin-top: 4px;
+}
+
+.cv-classico .cv-item {
+  padding-left: 0;
+}
+
+.cv-classico .cv-item::before {
+  display: none;
+}
+
+.cv-classico .cv-item + .cv-item {
+  margin-top: 10px;
+}
+
+.cv-classico .cv-item > :first-child {
+  color: var(--cv-escuro);
+  font-size: 14.5px;
+}
+
+.cv-classico .cv-periodo {
+  color: #374151;
+  font-size: 13px;
+}
+
+.cv-classico .cv-descricao,
+.cv-classico .cv-extra {
+  font-size: 14px;
+  font-style: normal;
+}
+
+.cv-classico .cv-link a {
+  color: var(--cv-escuro);
+}
+
+/* Modelos de uma coluna (Clássico Profissional, Primeiro Emprego, Técnico, Moderno Discreto)
+   --------------------------------------------------------------------------------------------
+   Base comum; cada modelo tem um bloco próprio logo abaixo. A cor de destaque e a fonte vêm
+   das variáveis --curriculo-*; o texto principal continua escuro em todos. */
+.cv-coluna {
+  padding: 15mm 16mm;
+  color: var(--curriculo-cor-texto);
+  font-size: 14px;
+  line-height: 1.5;
+  page: coluna;
+}
+
+.cv-coluna .cv-texto,
+.cv-coluna .cv-descricao {
+  color: var(--curriculo-cor-texto);
+}
+
+.cv-coluna .cv-contatos {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+  overflow-wrap: anywhere;
+}
+
+.cv-coluna .cv-secao + .cv-secao {
+  margin-top: 18px;
+}
+
+.cv-coluna .cv-item {
+  padding-left: 0;
+}
+
+.cv-coluna .cv-item::before {
+  display: none;
+}
+
+.cv-coluna .cv-item + .cv-item {
+  margin-top: 12px;
+}
+
+.cv-coluna .cv-periodo {
+  color: #4b5563;
+}
+
+.cv-coluna .cv-extra {
+  font-style: normal;
+}
+
+.cv-etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cv-etiqueta {
+  padding: 2px 10px;
+  border: 1px solid var(--curriculo-cor-secundaria);
+  border-radius: 999px;
+  font-size: 12.5px;
+}
+
+.cv-rotulo-grupo {
+  margin: 8px 0 2px;
+  color: #4b5563;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.cv-rotulo-grupo:first-of-type {
+  margin-top: 0;
+}
+
+/* Modelo 1 — Clássico Profissional: centralizado, nome em maiúsculas, linhas finas. */
+.cv-profissional .cv-identificacao {
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--curriculo-cor-destaque);
+  text-align: center;
+}
+
+.cv-folha.cv-profissional .cv-nome {
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.cv-profissional .cv-secao > :first-child {
+  display: block;
+  margin: 0 0 8px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #d1d5db;
+  font-size: 13px;
+  letter-spacing: .1em;
+}
+
+.cv-profissional .cv-secao > :first-child::after {
+  display: none;
+}
+
+.cv-profissional .cv-item > :first-child {
+  color: var(--curriculo-cor-texto);
+  font-size: 14.5px;
+}
+
+/* Modelo 2 — Primeiro Emprego / Jovem Aprendiz: faixa clara no topo, títulos com barra
+   lateral e competências em etiquetas. */
+.cv-primeiro .cv-identificacao {
+  margin: -15mm -16mm 18px;
+  padding: 13mm 16mm 9mm;
+  background: color-mix(in srgb, var(--curriculo-cor-destaque) 9%, #ffffff);
+  border-bottom: 3px solid var(--curriculo-cor-destaque);
+}
+
+.cv-folha.cv-primeiro .cv-nome {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.cv-primeiro .cv-busca {
+  margin: 6px 0 0;
+  color: var(--curriculo-cor-texto);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.cv-primeiro .cv-secao > :first-child {
+  display: block;
+  margin: 0 0 8px;
+  padding-left: 10px;
+  border-left: 4px solid var(--curriculo-cor-destaque);
+  font-size: 15.5px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.cv-primeiro .cv-secao > :first-child::after {
+  display: none;
+}
+
+.cv-primeiro .cv-item {
+  padding-left: 14px;
+}
+
+.cv-primeiro .cv-item::before {
+  display: block;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  background: var(--curriculo-cor-destaque);
+}
+
+.cv-primeiro .cv-etiqueta {
+  color: var(--curriculo-cor-texto);
+  background: color-mix(in srgb, var(--curriculo-cor-destaque) 10%, #ffffff);
+  border-color: transparent;
+}
+
+/* Modelo 3 — Técnico / Tecnologia: títulos com traço curto, projetos com linha à
+   esquerda e tecnologias destacadas. */
+.cv-tecnico .cv-identificacao {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--curriculo-cor-destaque);
+}
+
+.cv-folha.cv-tecnico .cv-nome {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+.cv-tecnico .cv-area {
+  margin: 2px 0 0;
+  color: var(--curriculo-cor-destaque);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.cv-tecnico .cv-secao > :first-child {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 13px;
+  letter-spacing: .08em;
+}
+
+.cv-tecnico .cv-secao > :first-child::after {
+  display: block;
+  flex: none;
+  width: 28px;
+  height: 3px;
+  margin-top: 4px;
+  background: var(--curriculo-cor-destaque);
+}
+
+.cv-tecnico .cv-etiquetas--tecnicas .cv-etiqueta {
+  background: color-mix(in srgb, var(--curriculo-cor-destaque) 7%, #ffffff);
+  border-color: color-mix(in srgb, var(--curriculo-cor-destaque) 45%, #ffffff);
+  border-radius: 4px;
+}
+
+.cv-tecnico .cv-comportamentais {
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.cv-tecnico .cv-item {
+  padding-left: 12px;
+  border-left: 2px solid #e5e7eb;
+}
+
+.cv-tecnico .cv-extra {
+  color: var(--curriculo-cor-destaque);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+/* Modelo 4 — Moderno Discreto: nome leve, títulos em uma coluna estreita à esquerda,
+   linhas finas entre seções e cor só em detalhes. */
+.cv-discreto .cv-identificacao {
+  margin-bottom: 14px;
+}
+
+.cv-discreto .cv-identificacao::before {
+  display: block;
+  width: 48px;
+  height: 4px;
+  margin-bottom: 14px;
+  content: "";
+  background: var(--curriculo-cor-destaque);
+}
+
+.cv-folha.cv-discreto .cv-nome {
+  color: var(--curriculo-cor-texto);
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: -.02em;
+  line-height: 1.1;
+}
+
+.cv-discreto .cv-area {
+  margin: 4px 0 0;
+  color: var(--curriculo-cor-destaque);
+  font-size: 14px;
+  letter-spacing: .04em;
+}
+
+.cv-discreto .cv-contatos {
+  color: #4b5563;
+}
+
+.cv-discreto .cv-secao {
+  display: grid;
+  grid-template-columns: 32mm minmax(0, 1fr);
+  column-gap: 8mm;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.cv-discreto .cv-secao + .cv-secao {
+  margin-top: 12px;
+}
+
+.cv-discreto .cv-secao > :first-child {
+  display: block;
+  margin: 0;
+  font-size: 11.5px;
+  letter-spacing: .14em;
+}
+
+.cv-discreto .cv-secao > :first-child::after {
+  display: none;
+}
+
+.cv-discreto .cv-secao > :not(:first-child) {
+  grid-column: 2;
+}
+
+.cv-discreto .cv-item > :first-child {
+  color: var(--curriculo-cor-texto);
+}
+
+.cv-discreto .cv-comportamentais {
+  margin-top: 4px;
+  color: #4b5563;
+}
+
+/* Prévia na tela -------------------------------------------------------- */
+/* A folha mantém a largura de uma página A4 (210 mm) e é reduzida por escala para
+   caber na coluna da prévia e nas miniaturas: as proporções nunca se deformam. */
+.previa-escala,
+.miniatura-escala {
+  transform-origin: top left;
+}
+
+.previa-escala > .cv-folha,
+.miniatura-escala > .cv-folha {
+  width: 210mm;
+  max-width: none;
+}
+
+@media screen {
+  .previa-documento .cv-folha {
+    box-shadow: var(--sombra-2);
+  }
+
+  /* Na tela, os modelos de uma coluna têm pelo menos a altura de uma folha A4. */
+  .cv-coluna {
+    min-height: 297mm;
+  }
+}
+
+/* Versão imprimível: fica fora do <main> e só aparece na impressão. */
+#area-impressao {
+  display: none;
+}
+
+/* Impressão / Salvar como PDF ------------------------------------------- */
+/* Página A4. A 1ª página começa no topo (coluna azul até a borda); as demais têm
+   margem superior; todas têm margem inferior. As margens laterais ficam no
+   espaçamento interno das colunas. */
+@page {
+  size: A4;
+  margin: 12mm 0 14mm;
+}
+
+@page :first {
+  margin-top: 0;
+}
+
+/* Modelos de uma coluna: margens nos quatro lados (página nomeada "coluna"). */
+@page coluna {
+  size: A4;
+  margin: 15mm 16mm;
+}
+
+/* Modelo Clássico: margens iguais nos quatro lados (página nomeada). */
+@page classico {
+  size: A4;
+  margin: 18mm;
+}
+
+.cv-classico {
+  page: classico;
+}
+
+@media print {
+  /* Só a versão imprimível aparece: menu, rodapé, formulário, botões, tema e Nina somem. */
+  body.imprimindo-curriculo {
+    display: block;
+    min-height: 0;
+    margin: 0;
+    padding: 0 !important;
+    color: #243244;
+    background: #ffffff;
+  }
+
+  body.imprimindo-curriculo > :not(#area-impressao) {
+    display: none !important;
+  }
+
+  body.imprimindo-curriculo #area-impressao {
+    display: block;
+  }
+
+  #area-impressao .cv-folha {
+    max-width: none;
+    box-shadow: none;
+  }
+
+  #area-impressao .cv-moderno {
+    width: 210mm;
+    /* Altura útil da 1ª página (297 mm − 14 mm de margem inferior − 1 mm de folga). */
+    min-height: 282mm;
+    grid-template-columns: 34% 66%;
+  }
+
+  /* No Clássico, a margem vem da página (@page classico). */
+  #area-impressao .cv-classico {
+    width: auto;
+    padding: 0;
+  }
+
+  .cv-classico .cv-secao > :first-child {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .cv-lateral {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Quebras de página: itens inteiros e títulos junto do primeiro item. */
+  .cv-foto,
+  .cv-identificacao,
+  .cv-contato,
+  .cv-competencia,
+  .cv-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .cv-secao > :first-child,
+  .cv-secao-lateral > :first-child {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Modelos de uma coluna: a margem vem da página (@page coluna). */
+  #area-impressao .cv-coluna {
+    width: auto;
+    min-height: 0;
+    padding: 0;
+  }
+
+  /* Faixa do topo do Primeiro Emprego dentro da margem da página. */
+  #area-impressao .cv-primeiro .cv-identificacao {
+    margin: 0 0 18px;
+    padding: 8mm 8mm 6mm;
+  }
+
+  /* Mantém as cores escolhidas no PDF (quando o navegador permite). */
+  .cv-folha,
+  .cv-folha * {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .cv-coluna .cv-secao > :first-child,
+  .cv-rotulo-grupo {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .cv-etiqueta {
+    break-inside: avoid;
+  }
+}
