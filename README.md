@@ -140,7 +140,7 @@ Campos do registro:
 | --- | --- |
 | `id`, `ativo` | Obrigatórios. `"ativo": false` esconde o estudante de todas as listagens, da pesquisa e do currículo individual. |
 | `nome`, `titulo`, `turma`, `area`, `foto`, `sobre` | Identificação. A foto usa caminho relativo à raiz, como `"fotos/nome.png"`. |
-| `contato` | `cidade`, `github`, `linkedin`. Evite publicar e-mail e telefone pessoais. |
+| `contato` | `cidade`, `github`, `linkedin`. Evite publicar e-mail e telefone pessoais. Se houver `email` ou `telefone`, a página do currículo mostra "Oculto" e só exibe o dado quando o visitante clica em "Mostrar e-mail"/"Mostrar telefone" (o JSON continua público). CPF, RG e outros documentos nunca são exibidos e não devem entrar no JSON. |
 | `competencias`, `formacao`, `experiencias`, `projetos` | Conteúdo do currículo. |
 | `habilidades_tecnicas`, `habilidades_comportamentais` | Opcionais. Ativam os filtros de habilidades no catálogo. |
 | `interesses_profissionais`, `tipos_oportunidade` | Opcionais. Entram no filtro de área e no de oportunidade. |

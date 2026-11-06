@@ -96,9 +96,41 @@
     }
   }
 
+  // Dados pessoais que só aparecem quando quem visualiza pede (clique no botão).
+  // Antes do clique, a folha mostra apenas "Oculto"; o valor não entra na página.
+  // CPF, RG e outros documentos nunca são exibidos: só os campos desta lista
+  // e os de preencherContato() aparecem, mesmo que o JSON tenha outros.
+  const CAMPOS_SIGILOSOS = {
+    email: { rotulo: "E-mail", acao: "Mostrar e-mail", link: (valor) => `mailto:${valor}` },
+    telefone: { rotulo: "Telefone", acao: "Mostrar telefone", link: (valor) => `tel:${valor.replace(/[^\d+]/g, "")}` }
+  };
+
+  // Monta o contato sigiloso: rótulo, aviso "Oculto" e o botão que revela o dado.
+  function adicionarContatoSigiloso(campo, valor) {
+    const config = CAMPOS_SIGILOSOS[campo];
+    if (!config || !temTexto(valor)) return;
+    const texto = valor.trim();
+    const item = criar("li", "item-contato");
+    const oculto = criar("span", "contato-oculto", "Oculto");
+    const botao = criar("button", "botao-revelar", config.acao);
+    botao.type = "button";
+    // Ao pedir, troca o aviso pelo link e leva o foco até ele (o botão deixa de existir).
+    botao.addEventListener("click", () => {
+      const link = document.createElement("a");
+      link.href = config.link(texto);
+      link.textContent = texto;
+      oculto.replaceWith(link);
+      botao.remove();
+      link.focus();
+    }, { once: true });
+    item.append(criar("span", "rotulo-contato", config.rotulo), oculto, botao);
+    elementos.contato.append(item);
+  }
+
   function preencherContato(contato = {}, links = []) {
     elementos.contato.replaceChildren();
-    adicionarContato("E-mail", contato.email, temTexto(contato.email) ? `mailto:${contato.email.trim()}` : "");
+    adicionarContatoSigiloso("email", contato.email);
+    adicionarContatoSigiloso("telefone", contato.telefone);
     adicionarContato("Cidade", contato.cidade);
     adicionarContato("LinkedIn", temTexto(contato.linkedin) ? "Ver perfil" : "", contato.linkedin, true);
     adicionarContato("GitHub", temTexto(contato.github) ? "Ver perfil" : "", contato.github, true);

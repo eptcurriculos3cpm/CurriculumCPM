@@ -134,6 +134,31 @@
   text-decoration: underline;
 }
 
+/* Contato sigiloso (e-mail, telefone): aviso "Oculto" e botão para revelar.
+   Borda e texto brancos sobre a coluna azul (mais de 5:1). */
+.contato-oculto {
+  font-style: italic;
+  color: var(--a4-rotulo-lateral);
+}
+
+.botao-revelar {
+  display: block;
+  min-height: 32px;
+  margin-top: 6px;
+  padding: 4px 12px;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  color: #ffffff;
+  background: transparent;
+  font: inherit;
+  font-size: .78rem;
+  cursor: pointer;
+}
+
+.botao-revelar:hover {
+  background: rgba(255, 255, 255, .15);
+}
+
 .competencia {
   margin-bottom: 15px;
 }
@@ -486,6 +511,11 @@
 
   .foto-aluno {
     width: min(100%, 190px);
+  }
+
+  /* No PDF, um contato não revelado sai só como "Oculto", sem o botão. */
+  .botao-revelar {
+    display: none;
   }
 
   .secao-lateral,

@@ -450,3 +450,25 @@ O índice no topo mostra Obrigatória/Opcional e passa a "Revisar" nas seções 
 - **Edge não testado:** o Edge 156 instalado não inicia neste ambiente (nem em headless direto).
 - A janela de impressão real (escolha de destino e margens pelo usuário) não pode ser automatizada: os PDFs foram gerados pelo mecanismo de impressão do Chrome com as mesmas regras `@media print`.
 - Firefox/Safari, leitor de tela e celular físico não foram testados.
+
+
+### Etapa "Contato sigiloso no currículo publicado" — 06/11/2026
+
+**Objetivo:** o e-mail (e o telefone, se um dia existir no JSON) do estudante não aparece mais direto na folha; só é exibido quando quem visualiza pede.
+
+**O que mudou:**
+- `js/curriculo-aluno.js`: nova lista `CAMPOS_SIGILOSOS` (e-mail e telefone) e função `adicionarContatoSigiloso()`. Antes do clique, a folha mostra "Oculto" e um botão "Mostrar e-mail"/"Mostrar telefone" (`type="button"`); o valor só entra na página depois do clique, como link `mailto:`/`tel:`, e o foco vai para o link. CPF, RG e outros campos nunca são exibidos (só campos conhecidos são lidos).
+- `css/curriculo-aluno.css`: estilos `.contato-oculto` e `.botao-revelar` na coluna azul (branco sobre azul, mais de 5:1; alvo de 32 px de altura). Na impressão, o botão some: um contato não revelado sai como "Oculto" no PDF; se o visitante revelar antes, o PDF sai com o dado.
+- README: tabela de campos atualizada. JSON, IDs, fotos e catálogo não foram alterados.
+
+**Testes** (Chrome headless, `/curriculos/`, roteiro fora do projeto): **35/35 aprovados**.
+- 6 estudantes reais: e-mail ausente do DOM antes do clique; clique real revela o link `mailto` correto, foco no link, botão removido; alvo de 109×32 px.
+- Teclado: Enter no botão revela e foca o link.
+- Impressão emulada: botão oculto, "Oculto" visível; PDF gerado.
+- Claro/escuro × 1366, 390 e 320 px: sem rolagem horizontal; capturas conferidas.
+- Dados **fictícios só no navegador** ("Teste Ficticio"): e-mail, telefone e CPF fora do DOM; revelar o telefone não revela e-mail nem CPF; registro sem e-mail não mostra botão.
+- Regressão: ID inexistente e ausente, catálogo com 6 links, console sem erros, sem 404 (exceto `/favicon.ico`, P2-7).
+
+**Limitações:**
+- **Não é sigilo real.** O site é estático e `data/alunos-dados.json` é público: qualquer pessoa (ou robô) que abra o JSON vê os e-mails. A mudança só evita a exibição direta na página e a coleta pelo texto da página. Proteção de verdade exige retirar `email` do JSON (com autorização da equipe, regra 9) e usar o contato intermediado (`contato_intermediado`), já existente — ver P2-9.
+- Leitor de tela real, Firefox/Safari, celular físico e o diálogo de impressão real não foram testados.
