@@ -265,17 +265,6 @@ Testes automatizados no Chrome, com o site servido sob `/curriculos/` (como no G
 - **Currículos publicados:** a impressão dos 6 foi comparada pixel a pixel com a versão anterior, idêntica (antes da última etapa de modelos).
 - **Nina:** respostas, simulação de entrevista e painel lateral.
 
-**Ainda não testado:**
-
-- um envio real ao Formspree;
-- Edge (não abriu no ambiente de teste), Firefox e Safari;
-- leitor de tela real;
-- celular físico;
-- a janela de impressão real de cada navegador;
-- o site publicado no GitHub Pages.
-
-A bateria completa de testes deve ser repetida após a etapa dos cinco modelos.
-
 ## Contato
 
 E-mail: eptcurriculos@gmail.com
